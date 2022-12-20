@@ -1,0 +1,18 @@
+default: &default
+  address: <%= ENV.fetch('EMAIL_HOST') %>
+  port: <%= ENV.fetch('EMAIL_PORT') %>
+  user_name: <%= ENV.fetch('EMAIL_HOST_USER') %>
+  password: <%= ENV.fetch('EMAIL_HOST_PASSWORD') %>
+  authentication: "plain" # plain, login, or cram_md5
+  domain: <%= ENV.fetch('EMAIL_DOMAIN') %>
+  outgoing_address: <%= ENV.fetch('EMAIL_SENDER_ADDRESS') %>
+  default_name: <%= ENV.fetch('EMAIL_SENDER_NAME') %>
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default

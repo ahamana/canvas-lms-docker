@@ -1,0 +1,13 @@
+default: &default
+  log_context: false
+
+production:
+  <<: *default
+  log_context: true
+  log_level: error
+
+development:
+  <<: *default
+
+test:
+  <<: *default

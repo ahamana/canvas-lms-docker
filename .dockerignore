@@ -1,0 +1,8 @@
+*.bat
+*.sh
+.dockerignore
+.env
+.git
+.github
+Dockerfile*
+docker-compose*.yml

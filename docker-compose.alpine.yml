@@ -1,0 +1,5 @@
+version: "3.8"
+
+services:
+  app:
+    image: ahamana/canvas-lms:ruby3.1-alpine

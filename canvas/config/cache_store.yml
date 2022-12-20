@@ -1,0 +1,11 @@
+default: &default
+  cache_store: redis_cache_store
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default

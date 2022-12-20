@@ -1,0 +1,139 @@
+# syntax=docker/dockerfile
+
+ARG NODE_VERSION=16
+ARG RUBY_VERSION=3.1
+ARG CANVAS_HOME=/opt/canvas
+
+FROM node:${NODE_VERSION}-alpine AS node
+
+FROM ruby:${RUBY_VERSION}-alpine AS builder
+
+ARG YARN_VERSION=1.22.19
+ARG BUNDLER_VERSION=2.4.5
+ARG CANVAS_HOME
+
+COPY --from=node /usr/local/bin/node /usr/local/bin
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+RUN <<EOF
+ln -s /usr/local/bin/node /usr/local/bin/nodejs
+ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
+ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+
+apk add --no-cache \
+    alpine-sdk \
+    bash \
+    libidn-dev \
+    libpq-dev \
+    sqlite-dev \
+    tzdata \
+    xmlsec-dev
+
+npm update -g npm
+npm install -g yarn@${YARN_VERSION}
+
+git clone -b prod --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
+EOF
+
+WORKDIR ${CANVAS_HOME}
+
+RUN <<EOF
+yarn config set network-timeout 600000
+yarn config set network-concurrency 1
+yarn install --pure-lockfile --ignore-optional
+
+gem install bundler -v ${BUNDLER_VERSION} --no-document
+bundle install
+bundle exec rake canvas:compile_assets_dev
+
+rm -rf \
+    .git \
+    .github \
+    .storybook \
+    .vscode \
+    build \
+    doc \
+    docker-compose \
+    hooks \
+    jest \
+    log/* \
+    node_modules \
+    tmp/* \
+    ui \
+    ui-build
+rm \
+    .codeclimate.yml \
+    .dive-ci \
+    .dockerignore \
+    .editorconfig \
+    .eslintignore \
+    .eslintrc.js \
+    .git-blame-ignore-revs \
+    .gitignore \
+    .gitmessage \
+    .groovylintrc.json \
+    .i18nignore \
+    .i18nrc \
+    .irbrc \
+    .lintstagedrc.js \
+    .npmrc \
+    .nvmrc \
+    .prettierrc \
+    .rspec \
+    .rubocop.yml \
+    .sentryignore \
+    .stylelintrc \
+    .travis.yml \
+    CONTRIBUTING.md \
+    COPYRIGHT \
+    Dockerfile* \
+    Jenkinsfile* \
+    LICENSE \
+    README.md \
+    bower.json \
+    code_of_conduct.md \
+    config/*.yml.* \
+    docker-compose* \
+    gulpfile.js \
+    issue_template.md \
+    jest.config.js \
+    karma.conf.js \
+    package.json \
+    tsconfig.json \
+    webpack.config.js \
+    yarn.lock
+EOF
+
+COPY canvas ${CANVAS_HOME}
+
+FROM ruby:${RUBY_VERSION}-alpine AS runner
+
+ARG CANVAS_HOME
+ARG CANVAS_USER=canvas
+
+RUN <<EOF
+apk add --no-cache \
+    brotli-libs \
+    git \
+    libidn \
+    libpq \
+    sqlite-libs \
+    tzdata \
+    xmlsec
+
+addgroup ${CANVAS_USER}
+adduser -D -G ${CANVAS_USER} -h ${CANVAS_HOME} ${CANVAS_USER}
+EOF
+
+COPY --from=builder --chown=${CANVAS_USER} ${GEM_HOME} ${GEM_HOME}
+COPY --from=builder --chown=${CANVAS_USER} ${CANVAS_HOME} ${CANVAS_HOME}
+
+WORKDIR ${CANVAS_HOME}
+
+USER ${CANVAS_USER}
+
+ENV RUBYLIB ${CANVAS_HOME}
+
+EXPOSE 3000
+
+CMD [ "bundle", "exec", "rails", "server", "-b", "0.0.0.0" ]

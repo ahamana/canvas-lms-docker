@@ -1,0 +1,13 @@
+default: &default
+  encryption_key: facdd3a131ddd8988b14f6e4e01039c93cfa0160
+  lti_iss: https://canvas.instructure.com
+  lti_grant_host: <%= ENV.fetch('CANVAS_LMS_DOMAIN') %>
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default
