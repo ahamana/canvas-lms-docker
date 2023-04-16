@@ -9,7 +9,7 @@ FROM node:${NODE_VERSION}-bullseye-slim AS node
 FROM ruby:${RUBY_VERSION}-bullseye AS builder
 
 ARG YARN_VERSION=1.22.19
-ARG BUNDLER_VERSION=2.4.11
+ARG BUNDLER_VERSION=2.4.12
 ARG CANVAS_HOME
 
 COPY --from=node /usr/local/bin/node /usr/local/bin
