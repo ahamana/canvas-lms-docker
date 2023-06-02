@@ -16,7 +16,6 @@ jobs:
           - alpine
           - debian
         ruby-version:
-          - "2.7"
           - "3.1"
 
     steps:
