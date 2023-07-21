@@ -4,9 +4,9 @@ ARG NODE_VERSION=16
 ARG RUBY_VERSION=3.1
 ARG CANVAS_HOME=/opt/canvas
 
-FROM node:${NODE_VERSION}-bullseye-slim AS node
+FROM node:${NODE_VERSION}-bookworm-slim AS node
 
-FROM ruby:${RUBY_VERSION}-bullseye AS builder
+FROM ruby:${RUBY_VERSION}-bookworm AS builder
 
 ARG YARN_VERSION=1.22.19
 ARG BUNDLER_VERSION=2.4.17
@@ -22,7 +22,7 @@ ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
 apt-get update
 apt-get install -y --no-install-recommends \
-    libidn11-dev \
+    libidn-dev \
     libxmlsec1-dev
 
 npm update -g npm
@@ -102,7 +102,7 @@ EOF
 
 COPY canvas ${CANVAS_HOME}
 
-FROM ruby:${RUBY_VERSION}-slim-bullseye AS runner
+FROM ruby:${RUBY_VERSION}-slim-bookworm AS runner
 
 ARG CANVAS_HOME
 ARG CANVAS_USER=canvas
@@ -112,7 +112,7 @@ apt-get update
 apt-get install -y --no-install-recommends \
     git \
     libbrotli1 \
-    libidn11 \
+    libidn12 \
     libpq5 \
     libsqlite3-0 \
     libxmlsec1-openssl
