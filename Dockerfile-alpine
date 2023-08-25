@@ -55,6 +55,7 @@ rm -rf \
     doc \
     docker-compose \
     hooks \
+    inst-cli \
     jest \
     log/* \
     node_modules \
@@ -90,6 +91,7 @@ rm \
     Jenkinsfile* \
     LICENSE \
     README.md \
+    SECURITY.md \
     bower.json \
     code_of_conduct.md \
     config/*.yml.* \
