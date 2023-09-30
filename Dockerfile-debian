@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile
 
-ARG NODE_VERSION=16
+ARG NODE_VERSION=18
 ARG RUBY_VERSION=3.1
 ARG CANVAS_HOME=/opt/canvas
 
@@ -11,6 +11,8 @@ FROM ruby:${RUBY_VERSION}-bookworm AS builder
 ARG YARN_VERSION=1.22.19
 ARG BUNDLER_VERSION=2.4.20
 ARG CANVAS_HOME
+
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
 COPY --from=node /usr/local/bin/node /usr/local/bin
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
