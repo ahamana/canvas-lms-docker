@@ -49,6 +49,7 @@ rm -rf \
     .github \
     .storybook \
     .vscode \
+    Courses \
     build \
     doc \
     docker-compose \
@@ -62,6 +63,7 @@ rm -rf \
     ui-build
 rm \
     .codeclimate.yml \
+    .devcontainer.json \
     .dive-ci \
     .dockerignore \
     .editorconfig \
@@ -100,6 +102,7 @@ rm \
     karma.conf.js \
     package.json \
     tsconfig.json \
+    vitest.*.ts \
     webpack.config.js \
     yarn.lock
 EOF
