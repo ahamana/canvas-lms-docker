@@ -67,8 +67,8 @@ services:
         target: /data
 
   smtp:
-    image: mailhog/mailhog
-    container_name: mailhog
+    image: axllent/mailpit
+    container_name: mailpit
     ports:
       - 8025:8025
 
