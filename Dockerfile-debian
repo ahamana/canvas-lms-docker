@@ -9,7 +9,7 @@ FROM node:${NODE_VERSION}-bookworm-slim AS node
 FROM ruby:${RUBY_VERSION}-bookworm AS builder
 
 ARG YARN_VERSION=1.22.21
-ARG BUNDLER_VERSION=2.5.1
+ARG BUNDLER_VERSION=2.5.2
 ARG CANVAS_HOME
 
 ENV NODE_OPTIONS=--openssl-legacy-provider
