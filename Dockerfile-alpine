@@ -9,7 +9,6 @@ FROM node:${NODE_VERSION}-alpine AS node
 FROM ruby:${RUBY_VERSION}-alpine AS builder
 
 ARG YARN_VERSION=1.22.21
-ARG BUNDLER_VERSION=2.5.4
 ARG CANVAS_HOME
 
 ENV NODE_OPTIONS=--openssl-legacy-provider
@@ -44,7 +43,6 @@ yarn config set network-timeout 600000
 yarn config set network-concurrency 1
 yarn install --pure-lockfile --ignore-optional
 
-gem install bundler -v ${BUNDLER_VERSION} --no-document
 bundle install
 bundle exec rake canvas:compile_assets_dev
 
