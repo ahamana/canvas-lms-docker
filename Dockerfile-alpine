@@ -86,7 +86,6 @@ rm \
     .rubocop.yml \
     .sentryignore \
     .stylelintrc \
-    .travis.yml \
     CONTRIBUTING.md \
     COPYRIGHT \
     Dockerfile* \
