@@ -102,9 +102,9 @@ rm \
     jest.config.js \
     karma.conf.js \
     package.json \
+    rspack.config.js \
     tsconfig.json \
     vitest.*.ts \
-    webpack.config.js \
     yarn.lock
 EOF
 
