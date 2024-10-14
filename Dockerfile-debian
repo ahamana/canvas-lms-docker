@@ -49,7 +49,6 @@ rm -rf \
     .github \
     .storybook \
     .vscode \
-    Courses \
     build \
     doc \
     docker-compose \
@@ -87,12 +86,12 @@ rm \
     .stylelintrc \
     CONTRIBUTING.md \
     COPYRIGHT \
+    Courses \
     Dockerfile* \
     Jenkinsfile* \
     LICENSE \
     README.md \
     SECURITY.md \
-    bower.json \
     code_of_conduct.md \
     config/*.yml.* \
     docker-compose* \
@@ -101,6 +100,7 @@ rm \
     jest.config.js \
     karma.conf.js \
     package.json \
+    renovate.json \
     rspack.config.js \
     tsconfig.json \
     vitest.*.ts \
