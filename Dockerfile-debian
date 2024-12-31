@@ -63,6 +63,7 @@ rm -rf \
     ui-build
 rm \
     .codeclimate.yml \
+    .dependency-cruiser.js \
     .devcontainer.json \
     .dive-ci \
     .dockerignore \
