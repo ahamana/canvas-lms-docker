@@ -26,9 +26,15 @@ apk add --no-cache \
     bash \
     libidn-dev \
     libpq-dev \
+    shared-mime-info \
     sqlite-dev \
-    tzdata \
-    xmlsec-dev
+    tzdata
+# Building "nokogiri-xmlsec-instructor" fails bacause the error "'XMLSEC_CRYPTO' undeclared" occurs.
+# So, the package needs to be installed by specifying the version that can refer to "XMLSEC_CRYPTO".
+# https://github.com/instructure/nokogiri-xmlsec-instructure/issues/18
+# https://trac.macports.org/ticket/67233?cversion=0&cnum_hist=5
+apk add --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/v3.17/community/ \
+    xmlsec-dev~=1.2
 
 npm update -g npm
 npm install -g yarn@${YARN_VERSION}
@@ -45,6 +51,8 @@ yarn install --pure-lockfile --ignore-optional
 # https://github.com/instructure/canvas-lms/issues/2311
 yarn add @instructure/outcomes-ui -W
 
+# https://github.com/sparklemotion/sqlite3-ruby/issues/434
+bundle config set force_ruby_platform true
 bundle install
 bundle exec rake canvas:compile_assets_dev
 
@@ -124,6 +132,7 @@ apk add --no-cache \
     git \
     libidn \
     libpq \
+    shared-mime-info \
     sqlite-libs \
     tzdata \
     xmlsec
