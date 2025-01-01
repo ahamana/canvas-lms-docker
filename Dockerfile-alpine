@@ -91,7 +91,6 @@ rm \
     .stylelintrc \
     CONTRIBUTING.md \
     COPYRIGHT \
-    Courses \
     Dockerfile* \
     Jenkinsfile* \
     LICENSE \
