@@ -26,9 +26,10 @@ apt-get install -y --no-install-recommends \
 
 npm update -g npm
 npm install -g yarn@${YARN_VERSION}
-
-git clone -b prod --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
 EOF
+
+ADD https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/prod /dev/null
+RUN git clone -b prod --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
 
 WORKDIR ${CANVAS_HOME}
 
