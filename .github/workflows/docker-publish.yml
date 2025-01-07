@@ -23,6 +23,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ github.repository_owner }}/canvas-lms
+          tags: ruby${{ matrix.ruby-version }}-${{ matrix.os }}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -41,5 +48,5 @@ jobs:
           file: Dockerfile-${{ matrix.os }}
           build-args: |
             RUBY_VERSION=${{ matrix.ruby-version }}
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/canvas-lms:ruby${{ matrix.ruby-version }}-${{ matrix.os }}
+          tags: ${{ steps.meta.outputs.tags }}
           push: true
