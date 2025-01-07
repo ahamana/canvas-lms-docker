@@ -9,8 +9,6 @@ FROM ruby:${RUBY_VERSION}-alpine AS builder
 ARG YARN_VERSION=1.22.22
 ARG CANVAS_HOME
 
-ENV NODE_OPTIONS=--openssl-legacy-provider
-
 COPY --from=node /usr/local/bin/node /usr/local/bin
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
@@ -125,6 +123,8 @@ FROM ruby:${RUBY_VERSION}-alpine AS runner
 ARG CANVAS_HOME
 ARG CANVAS_USER=canvas
 
+ENV RUBYLIB=${CANVAS_HOME}
+
 RUN <<EOF
 apk add --no-cache \
     brotli-libs \
@@ -146,8 +146,6 @@ COPY --from=builder --chown=${CANVAS_USER} ${CANVAS_HOME} ${CANVAS_HOME}
 WORKDIR ${CANVAS_HOME}
 
 USER ${CANVAS_USER}
-
-ENV RUBYLIB=${CANVAS_HOME}
 
 EXPOSE 3000
 
