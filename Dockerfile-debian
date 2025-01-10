@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile
+
 ARG NODE_VERSION=22
 ARG RUBY_VERSION=3.3
 ARG CANVAS_HOME=/opt/canvas
@@ -9,8 +11,8 @@ FROM ruby:${RUBY_VERSION}-bookworm AS builder
 ARG YARN_VERSION=1.22.22
 ARG CANVAS_HOME
 
-COPY --from=node /usr/local/bin/node /usr/local/bin
-COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --link --from=node /usr/local/bin/node /usr/local/bin
+COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
 RUN <<EOF
 ln -s /usr/local/bin/node /usr/local/bin/nodejs
@@ -26,7 +28,7 @@ npm update -g npm
 npm install -g yarn@${YARN_VERSION}
 EOF
 
-ADD https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/prod /dev/null
+ADD --link https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/prod /dev/null
 RUN git clone -b prod --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
 
 WORKDIR ${CANVAS_HOME}
@@ -102,7 +104,7 @@ rm \
     yarn.lock
 EOF
 
-COPY canvas ${CANVAS_HOME}
+COPY --link canvas ${CANVAS_HOME}
 
 FROM ruby:${RUBY_VERSION}-slim-bookworm AS runner
 
@@ -128,8 +130,8 @@ groupadd ${CANVAS_USER}
 useradd -g ${CANVAS_USER} -d ${CANVAS_HOME} ${CANVAS_USER}
 EOF
 
-COPY --from=builder --chown=${CANVAS_USER} ${GEM_HOME} ${GEM_HOME}
-COPY --from=builder --chown=${CANVAS_USER} ${CANVAS_HOME} ${CANVAS_HOME}
+COPY --link --from=builder --chown=${CANVAS_USER} ${GEM_HOME} ${GEM_HOME}
+COPY --link --from=builder --chown=${CANVAS_USER} ${CANVAS_HOME} ${CANVAS_HOME}
 
 WORKDIR ${CANVAS_HOME}
 
