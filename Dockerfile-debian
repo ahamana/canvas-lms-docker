@@ -7,6 +7,7 @@ FROM node:${NODE_VERSION}-bookworm-slim AS node
 FROM ruby:${RUBY_VERSION}-bookworm AS builder
 
 ARG YARN_VERSION=1.22.22
+ARG GIT_BRANCH=prod
 ARG CANVAS_HOME
 
 COPY --from=node /usr/local/bin/node /usr/local/bin
@@ -26,8 +27,8 @@ npm update -g npm
 npm install -g yarn@${YARN_VERSION}
 EOF
 
-ADD https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/prod /dev/null
-RUN git clone -b prod --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
+ADD https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/${GIT_BRANCH} /dev/null
+RUN git clone -b ${GIT_BRANCH} --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
 
 WORKDIR ${CANVAS_HOME}
 
