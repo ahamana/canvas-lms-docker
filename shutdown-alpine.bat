@@ -1,2 +1,2 @@
 
-docker compose -f docker-compose.yml -f docker-compose.alpine.yml -p canvas-lms-alpine down --rmi all
+docker compose -f compose.yml -f compose.alpine.yml -p canvas-lms-alpine down --rmi all
