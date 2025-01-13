@@ -1,2 +1,5 @@
 
-docker compose -f compose.yml -f compose.debian.yml -p canvas-lms-debian up -d
+export COMPOSE_FILE=compose.yml:compose.debian.yml
+export COMPOSE_PROJECT_NAME=canvas-lms-debian
+
+docker compose up -d

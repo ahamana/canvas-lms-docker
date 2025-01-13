@@ -1,2 +1,5 @@
 
-docker compose -f compose.yml -f compose.alpine.yml -p canvas-lms-alpine down --rmi all
+set COMPOSE_FILE=compose.yml;compose.alpine.yml
+set COMPOSE_PROJECT_NAME=canvas-lms-alpine
+
+docker compose down --rmi all

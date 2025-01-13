@@ -1,2 +1,5 @@
 
-docker compose -f compose.yml -f compose.debian.yml -p canvas-lms-debian run --rm app bundle exec rake db:initial_setup
+set COMPOSE_FILE=compose.yml;compose.debian.yml
+set COMPOSE_PROJECT_NAME=canvas-lms-debian
+
+docker compose run --rm app bundle exec rake db:initial_setup

@@ -1,2 +1,5 @@
 
-docker compose -f compose.yml -f compose.alpine.yml -p canvas-lms-alpine up -d
+export COMPOSE_FILE=compose.yml:compose.alpine.yml
+export COMPOSE_PROJECT_NAME=canvas-lms-alpine
+
+docker compose up -d
