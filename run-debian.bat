@@ -1,5 +1,4 @@
 
-set COMPOSE_FILE=compose.yml;compose.debian.yml
-set COMPOSE_PROJECT_NAME=canvas-lms-debian
+set COMPOSE_ENV_FILES=.env,.env.debian
 
 docker compose up -d

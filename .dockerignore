@@ -1,7 +1,7 @@
 *.bat
 *.sh
 .dockerignore
-.env
+.env*
 .git
 .github
 Dockerfile*
