@@ -77,8 +77,6 @@ rm \
     .dive-ci \
     .dockerignore \
     .editorconfig \
-    .eslintignore \
-    .eslintrc.js \
     .git-blame-ignore-revs \
     .gitignore \
     .gitmessage \
