@@ -12,8 +12,8 @@ ARG YARN_VERSION=1.22.22
 ARG GIT_BRANCH=prod
 ARG CANVAS_HOME
 
-COPY --from=node /usr/local/bin/node /usr/local/bin
-COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --link --from=node /usr/local/bin/node /usr/local/bin/
+COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
 RUN <<EOF
 ln -s /usr/local/bin/node /usr/local/bin/nodejs
@@ -35,7 +35,7 @@ npm update -g npm
 npm install -g yarn@${YARN_VERSION}
 EOF
 
-ADD https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/${GIT_BRANCH} /dev/null
+ADD --link https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/${GIT_BRANCH} /dev/null
 RUN git clone -b ${GIT_BRANCH} --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
 
 WORKDIR ${CANVAS_HOME}
@@ -115,7 +115,7 @@ rm \
     yarn.lock
 EOF
 
-COPY canvas ${CANVAS_HOME}
+COPY --link canvas ${CANVAS_HOME}
 
 FROM ruby:${RUBY_VERSION}-alpine AS runner
 
@@ -140,8 +140,8 @@ addgroup ${CANVAS_USER}
 adduser -D -G ${CANVAS_USER} -h ${CANVAS_HOME} ${CANVAS_USER}
 EOF
 
-COPY --from=builder --chown=${CANVAS_USER} ${GEM_HOME} ${GEM_HOME}
-COPY --from=builder --chown=${CANVAS_USER} ${CANVAS_HOME} ${CANVAS_HOME}
+COPY --link --from=builder --chown=${CANVAS_USER} ${GEM_HOME} ${GEM_HOME}
+COPY --link --from=builder --chown=${CANVAS_USER} ${CANVAS_HOME} ${CANVAS_HOME}
 
 WORKDIR ${CANVAS_HOME}
 
