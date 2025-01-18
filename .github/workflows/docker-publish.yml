@@ -48,6 +48,9 @@ jobs:
           build-args: |
             RUBY_VERSION=${{ matrix.ruby-version }}
           tags: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
+          platforms: |
+            linux/amd64
+            linux/arm64
           push: true
           cache-from: type=gha,scope=${{ matrix.ruby-version }}-${{ matrix.os }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.ruby-version }}-${{ matrix.os }}
+          cache-to: type=gha,scope=${{ matrix.ruby-version }}-${{ matrix.os }},mode=max

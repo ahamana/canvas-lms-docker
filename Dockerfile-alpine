@@ -28,7 +28,8 @@ apk add --no-cache \
     shared-mime-info \
     sqlite-dev \
     tzdata \
-    xmlsec-dev
+    xmlsec-dev \
+    yaml-dev
 
 npm update -g npm
 npm install -g yarn@${YARN_VERSION}
@@ -132,7 +133,8 @@ apk add --no-cache \
     shared-mime-info \
     sqlite-libs \
     tzdata \
-    xmlsec
+    xmlsec \
+    yaml
 
 addgroup ${CANVAS_USER}
 adduser -D -G ${CANVAS_USER} -h ${CANVAS_HOME} ${CANVAS_USER}
