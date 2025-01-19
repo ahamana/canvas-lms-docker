@@ -53,5 +53,5 @@ jobs:
             linux/amd64
             linux/arm64
           push: true
-          cache-from: type=gha,scope=${{ matrix.ruby-version }}-${{ matrix.os }}
-          cache-to: type=gha,scope=${{ matrix.ruby-version }}-${{ matrix.os }},mode=max
+          cache-from: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+          cache-to: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }},mode=max
