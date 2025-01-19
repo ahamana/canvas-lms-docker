@@ -103,7 +103,7 @@ rm \
     code_of_conduct.md \
     config/*.yml.* \
     docker-compose* \
-    eslint.config.*.js \
+    eslint.config*.js \
     gulpfile.js \
     issue_template.md \
     jest.config.js \
