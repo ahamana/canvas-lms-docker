@@ -109,6 +109,8 @@ COPY --link canvas ${CANVAS_HOME}
 FROM ruby:${RUBY_VERSION}-slim-bookworm AS runner
 
 ARG CANVAS_HOME
+ARG CANVAS_GROUP_ID=1000
+ARG CANVAS_USER_ID=1000
 ARG CANVAS_USER=canvas
 
 ENV RUBYLIB=${CANVAS_HOME}
@@ -126,12 +128,12 @@ apt-get install -y --no-install-recommends \
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 
-groupadd ${CANVAS_USER}
-useradd -g ${CANVAS_USER} -d ${CANVAS_HOME} ${CANVAS_USER}
+groupadd -g ${CANVAS_GROUP_ID} ${CANVAS_USER}
+useradd -g ${CANVAS_USER} -u ${CANVAS_USER_ID} -d ${CANVAS_HOME} ${CANVAS_USER}
 EOF
 
-COPY --link --from=builder --chown=${CANVAS_USER} ${GEM_HOME} ${GEM_HOME}
-COPY --link --from=builder --chown=${CANVAS_USER} ${CANVAS_HOME} ${CANVAS_HOME}
+COPY --link --from=builder --chown=${CANVAS_USER_ID} ${GEM_HOME} ${GEM_HOME}
+COPY --link --from=builder --chown=${CANVAS_USER_ID} ${CANVAS_HOME} ${CANVAS_HOME}
 
 WORKDIR ${CANVAS_HOME}
 
