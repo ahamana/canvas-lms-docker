@@ -48,6 +48,7 @@ jobs:
           build-args: |
             RUBY_VERSION=${{ matrix.ruby-version }}
           tags: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
+          labels: ${{ env.DOCKER_METADATA_OUTPUT_LABELS }}
           platforms: |
             linux/amd64
             linux/arm64
