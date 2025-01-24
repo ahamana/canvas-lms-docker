@@ -130,6 +130,7 @@ ENV RUBYLIB=${CANVAS_HOME}
 RUN <<EOF
 apk add --no-cache \
     brotli-libs \
+    file \
     git \
     libidn \
     libpq \

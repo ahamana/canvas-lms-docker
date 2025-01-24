@@ -118,6 +118,7 @@ ENV RUBYLIB=${CANVAS_HOME}
 RUN <<EOF
 apt-get update
 apt-get install -y --no-install-recommends \
+    file \
     git \
     libbrotli1 \
     libidn12 \
