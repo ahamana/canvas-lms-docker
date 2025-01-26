@@ -3,13 +3,16 @@ name: Docker
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY_IMAGE: ${{ github.repository_owner }}/canvas-lms
+
 jobs:
   build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
+    runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
         os:
@@ -18,19 +21,29 @@ jobs:
         ruby-version:
           - "3.3"
           - "3.4"
+        platform:
+          - linux/amd64
+          - linux/arm64
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
 
     steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> ${GITHUB_ENV}
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Extract metadata
         uses: docker/metadata-action@v5
         with:
-          images: ${{ github.repository_owner }}/canvas-lms
+          images: ${{ env.REGISTRY_IMAGE }}
           tags: ruby${{ matrix.ruby-version }}-${{ matrix.os }}
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -41,17 +54,87 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push by digest
+        id: build
         uses: docker/build-push-action@v6
         with:
           file: Dockerfile-${{ matrix.os }}
           build-args: |
             RUBY_VERSION=${{ matrix.ruby-version }}
-          tags: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
           labels: ${{ env.DOCKER_METADATA_OUTPUT_LABELS }}
-          platforms: |
-            linux/amd64
-            linux/arm64
-          push: true
-          cache-from: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
-          cache-to: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }},mode=max
+          platforms: ${{ matrix.platform }}
+          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          cache-from: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }}-${{ env.PLATFORM_PAIR }}
+          cache-to: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }}-${{ env.PLATFORM_PAIR }},mode=max
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: false
+
+      - name: Export digest
+        run: |
+          mkdir -p ${{ runner.temp }}/digests
+          digest=${{ steps.build.outputs.digest }}
+          touch ${{ runner.temp }}/digests/${digest#sha256:}
+
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-${{ env.DOCKER_METADATA_OUTPUT_VERSION }}-${{ env.PLATFORM_PAIR }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Write matrix outputs
+        uses: cloudposse/github-action-matrix-outputs-write@v1
+        with:
+          matrix-step-name: ${{ github.job }}
+          matrix-key: ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+          outputs: |
+            image-version: ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+            platform: ${{ matrix.platform }}
+
+  read-matrix:
+    runs-on: ubuntu-latest
+    needs: build
+    outputs:
+      result: ${{ steps.read-matrix.outputs.result }}
+
+    steps:
+      - name: Read matrix outputs
+        id: read-matrix
+        uses: cloudposse/github-action-matrix-outputs-read@v1
+        with:
+          matrix-step-name: build
+
+  merge:
+    runs-on: ubuntu-latest
+    needs: read-matrix
+    strategy:
+      matrix:
+        image-version: ${{ fromJson(needs.read-matrix.outputs.result).image-version.* }}
+
+    steps:
+      - name: Extract metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+          tags: ${{ matrix.image-version }}
+
+      - name: Download digests
+        id: download-digests
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digest-${{ env.DOCKER_METADATA_OUTPUT_VERSION }}*
+          merge-multiple: true
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Create manifest list and push
+        working-directory: ${{ steps.download-digests.outputs.download-path }}
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< ${DOCKER_METADATA_OUTPUT_JSON}) \
+            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
