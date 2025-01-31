@@ -76,11 +76,11 @@ rm \
     .lintstagedrc.js \
     .npmrc \
     .nvmrc \
-    .prettierrc \
     .rspec \
     .rubocop.yml \
     .sentryignore \
     .stylelintrc \
+    .yarnrc.yml \
     CONTRIBUTING.md \
     COPYRIGHT \
     Dockerfile* \
@@ -88,6 +88,7 @@ rm \
     LICENSE \
     README.md \
     SECURITY.md \
+    biome.json \
     code_of_conduct.md \
     config/*.yml.* \
     docker-compose* \
@@ -95,7 +96,6 @@ rm \
     gulpfile.js \
     issue_template.md \
     jest.config.js \
-    karma.conf.js \
     package.json \
     renovate.json \
     rspack.config.js \
