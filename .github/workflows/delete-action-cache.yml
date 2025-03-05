@@ -8,5 +8,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Delete Action Cache
+      - name: Delete action cache
         uses: toshimaru/delete-action-cache@v1
