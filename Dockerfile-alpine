@@ -47,10 +47,6 @@ yarn install --pure-lockfile
 
 # https://github.com/sparklemotion/sqlite3-ruby/issues/434
 bundle config set force_ruby_platform true
-# Building the version 0.10.2 or earlier of "nokogiri-xmlsec-instructor" fails bacause the error "'XMLSEC_CRYPTO' undeclared" occurs.
-# So, update "nokogiri-xmlsec-instructor" to the version 0.10.3 or later.
-# https://github.com/instructure/nokogiri-xmlsec-instructure/pull/20
-bundle update --conservative nokogiri-xmlsec-instructure
 bundle install
 bundle exec rake canvas:compile_assets_dev
 
