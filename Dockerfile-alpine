@@ -51,6 +51,7 @@ bundle install
 bundle exec rake canvas:compile_assets_dev
 
 rm -rf \
+    .devcontainer \
     .git \
     .github \
     .storybook \
