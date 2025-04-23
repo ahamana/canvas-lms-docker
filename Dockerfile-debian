@@ -8,7 +8,6 @@ FROM node:${NODE_VERSION}-bookworm-slim AS node
 
 FROM ruby:${RUBY_VERSION}-bookworm AS builder
 
-ARG YARN_VERSION=1.22.22
 ARG GIT_BRANCH=prod
 ARG CANVAS_HOME
 
@@ -17,6 +16,7 @@ COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
 RUN <<EOF
 ln -s /usr/local/bin/node /usr/local/bin/nodejs
+ln -s /usr/local/lib/node_modules/corepack/dist/corepack.js /usr/local/bin/corepack
 ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
@@ -26,7 +26,7 @@ apt-get install -y --no-install-recommends \
     libxmlsec1-dev
 
 npm update -g npm
-npm install -g yarn@${YARN_VERSION}
+corepack enable
 EOF
 
 ADD --link https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/${GIT_BRANCH} /dev/null
