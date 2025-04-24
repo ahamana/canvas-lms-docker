@@ -2,7 +2,8 @@ services:
   app:
     container_name: canvas
     ports:
-      - 80:3000
+      - published: 80
+        target: 3000
     environment:
       CANVAS_LMS_DOMAIN: ${CANVAS_LMS_DOMAIN}
       CANVAS_LMS_ADMIN_EMAIL: ${CANVAS_LMS_ADMIN_EMAIL}
@@ -40,7 +41,8 @@ services:
     image: postgres:17
     container_name: postgres
     ports:
-      - 5432:5432
+      - published: 5432
+        target: 5432
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -70,7 +72,8 @@ services:
     image: axllent/mailpit
     container_name: mailpit
     ports:
-      - 8025:8025
+      - published: 8025
+        target: 8025
 
 volumes:
   app-volume:
