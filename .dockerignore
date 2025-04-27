@@ -1,8 +1,9 @@
-*.bat
-*.sh
 .dockerignore
-.env*
+.env
 .git
 .github
-Dockerfile*
 compose*.yml
+Dockerfile*
+LICENSE
+README.md
+Taskfile.yml

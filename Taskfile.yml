@@ -1,0 +1,59 @@
+version: 3
+
+tasks:
+  default:
+    cmd: task -a
+
+  setup-alpine:
+    cmd:
+      task: setup
+      vars:
+        COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
+        COMPOSE_PROJECT_NAME: canvas-lms-alpine
+
+  run-alpine:
+    cmd:
+      task: run
+      vars:
+        COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
+        COMPOSE_PROJECT_NAME: canvas-lms-alpine
+
+  shutdown-alpine:
+    cmd:
+      task: shutdown
+      vars:
+        COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
+        COMPOSE_PROJECT_NAME: canvas-lms-alpine
+
+  setup-debian:
+    cmd:
+      task: setup
+      vars:
+        COMPOSE_FILES: -f compose.yml -f compose.debian.yml
+        COMPOSE_PROJECT_NAME: canvas-lms-debian
+
+  run-debian:
+    cmd:
+      task: run
+      vars:
+        COMPOSE_FILES: -f compose.yml -f compose.debian.yml
+        COMPOSE_PROJECT_NAME: canvas-lms-debian
+
+  shutdown-debian:
+    cmd:
+      task: shutdown
+      vars:
+        COMPOSE_FILES: -f compose.yml -f compose.debian.yml
+        COMPOSE_PROJECT_NAME: canvas-lms-debian
+
+  setup:
+    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} run --rm app bundle exec rake db:initial_setup
+    internal: true
+
+  run:
+    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} up {{.CLI_ARGS}}
+    internal: true
+
+  shutdown:
+    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} down {{.CLI_ARGS}}
+    internal: true
