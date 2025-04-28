@@ -1,8 +1,5 @@
 version: 3
 
-env:
-  COMPOSE_BAKE: true
-
 tasks:
   default:
     cmd: task -a
