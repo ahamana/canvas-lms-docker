@@ -25,6 +25,13 @@ tasks:
         COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
         COMPOSE_PROJECT_NAME: canvas-lms-alpine
 
+  logs-alpine:
+    cmd:
+      task: logs
+      vars:
+        COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
+        COMPOSE_PROJECT_NAME: canvas-lms-alpine
+
   setup-debian:
     cmd:
       task: setup
@@ -46,14 +53,25 @@ tasks:
         COMPOSE_FILES: -f compose.yml -f compose.debian.yml
         COMPOSE_PROJECT_NAME: canvas-lms-debian
 
+  logs-debian:
+    cmd:
+      task: logs
+      vars:
+        COMPOSE_FILES: -f compose.yml -f compose.debian.yml
+        COMPOSE_PROJECT_NAME: canvas-lms-debian
+
   setup:
     cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} run --rm app bundle exec rake db:initial_setup
     internal: true
 
   run:
-    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} up {{.CLI_ARGS}}
+    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} up -d {{.CLI_ARGS}}
     internal: true
 
   shutdown:
     cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} down {{.CLI_ARGS}}
+    internal: true
+
+  logs:
+    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} logs -f {{.CLI_ARGS}}
     internal: true
