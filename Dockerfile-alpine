@@ -11,16 +11,10 @@ FROM ruby:${RUBY_VERSION}-alpine AS builder
 ARG GIT_BRANCH=prod
 ARG CANVAS_HOME
 
-COPY --link --from=node /usr/local/bin/node /usr/local/bin/
+COPY --link --from=node /usr/local/bin /usr/local/bin
 COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
-RUN <<EOF
-ln -s /usr/local/bin/node /usr/local/bin/nodejs
-ln -s /usr/local/lib/node_modules/corepack/dist/corepack.js /usr/local/bin/corepack
-ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
-ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
-
-apk add --no-cache \
+RUN apk add --no-cache \
     alpine-sdk \
     bash \
     libidn-dev \
@@ -31,16 +25,17 @@ apk add --no-cache \
     xmlsec-dev \
     yaml-dev
 
-npm update -g npm
-corepack enable
-EOF
-
 ADD --link https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/${GIT_BRANCH} /dev/null
 RUN git clone -b ${GIT_BRANCH} --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
 
 WORKDIR ${CANVAS_HOME}
 
 RUN <<EOF
+npm update -g npm
+
+corepack disable yarn
+corepack enable yarn
+
 yarn config set network-timeout 600000
 yarn config set network-concurrency 1
 yarn install --pure-lockfile
