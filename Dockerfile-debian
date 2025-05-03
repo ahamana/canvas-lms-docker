@@ -127,7 +127,7 @@ apt-get clean
 rm -rf /var/lib/apt/lists/*
 
 groupadd -g ${CANVAS_GROUP_ID} ${CANVAS_USER}
-useradd -g ${CANVAS_USER} -u ${CANVAS_USER_ID} -d ${CANVAS_HOME} ${CANVAS_USER}
+useradd -l -g ${CANVAS_USER} -u ${CANVAS_USER_ID} -d ${CANVAS_HOME} ${CANVAS_USER}
 EOF
 
 COPY --link --from=builder --chown=${CANVAS_USER_ID} ${GEM_HOME} ${GEM_HOME}
