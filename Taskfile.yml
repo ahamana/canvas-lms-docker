@@ -1,5 +1,8 @@
 version: 3
 
+env:
+  COMPOSE_PATH_SEPARATOR: ":"
+
 tasks:
   default:
     cmd: task -a
@@ -9,70 +12,82 @@ tasks:
     cmd:
       task: setup
       vars:
-        COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
+        COMPOSE_FILE: compose.yml:compose.alpine.yml
         COMPOSE_PROJECT_NAME: canvas-lms-alpine
 
   run-alpine:
     cmd:
       task: run
       vars:
-        COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
+        COMPOSE_FILE: compose.yml:compose.alpine.yml
         COMPOSE_PROJECT_NAME: canvas-lms-alpine
 
   shutdown-alpine:
     cmd:
       task: shutdown
       vars:
-        COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
+        COMPOSE_FILE: compose.yml:compose.alpine.yml
         COMPOSE_PROJECT_NAME: canvas-lms-alpine
 
   logs-alpine:
     cmd:
       task: logs
       vars:
-        COMPOSE_FILES: -f compose.yml -f compose.alpine.yml
+        COMPOSE_FILE: compose.yml:compose.alpine.yml
         COMPOSE_PROJECT_NAME: canvas-lms-alpine
 
   setup-debian:
     cmd:
       task: setup
       vars:
-        COMPOSE_FILES: -f compose.yml -f compose.debian.yml
+        COMPOSE_FILE: compose.yml:compose.debian.yml
         COMPOSE_PROJECT_NAME: canvas-lms-debian
 
   run-debian:
     cmd:
       task: run
       vars:
-        COMPOSE_FILES: -f compose.yml -f compose.debian.yml
+        COMPOSE_FILE: compose.yml:compose.debian.yml
         COMPOSE_PROJECT_NAME: canvas-lms-debian
 
   shutdown-debian:
     cmd:
       task: shutdown
       vars:
-        COMPOSE_FILES: -f compose.yml -f compose.debian.yml
+        COMPOSE_FILE: compose.yml:compose.debian.yml
         COMPOSE_PROJECT_NAME: canvas-lms-debian
 
   logs-debian:
     cmd:
       task: logs
       vars:
-        COMPOSE_FILES: -f compose.yml -f compose.debian.yml
+        COMPOSE_FILE: compose.yml:compose.debian.yml
         COMPOSE_PROJECT_NAME: canvas-lms-debian
 
   setup:
-    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} run --rm app bundle exec rake db:initial_setup
+    env:
+      COMPOSE_FILE: "{{.COMPOSE_FILE}}"
+      COMPOSE_PROJECT_NAME: "{{.COMPOSE_PROJECT_NAME}}"
+    cmd: docker compose run --rm app bundle exec rake db:initial_setup
     internal: true
 
   run:
-    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} up -d {{.CLI_ARGS}}
+    env:
+      COMPOSE_FILE: "{{.COMPOSE_FILE}}"
+      COMPOSE_PROJECT_NAME: "{{.COMPOSE_PROJECT_NAME}}"
+    cmd: docker compose up -d {{.CLI_ARGS}}
     internal: true
 
   shutdown:
-    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} down {{.CLI_ARGS}}
+    env:
+      COMPOSE_FILE: "{{.COMPOSE_FILE}}"
+      COMPOSE_PROJECT_NAME: "{{.COMPOSE_PROJECT_NAME}}"
+    cmd: docker compose down {{.CLI_ARGS}}
     internal: true
 
   logs:
-    cmd: docker compose {{.COMPOSE_FILES}} -p {{.COMPOSE_PROJECT_NAME}} logs -f {{.CLI_ARGS}}
+    env:
+      COMPOSE_FILE: "{{.COMPOSE_FILE}}"
+      COMPOSE_PROJECT_NAME: "{{.COMPOSE_PROJECT_NAME}}"
+    cmd: docker compose logs -f {{.CLI_ARGS}}
     internal: true
