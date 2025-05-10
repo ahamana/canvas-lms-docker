@@ -1,7 +1,10 @@
+.cursor
 .dockerignore
 .env
 .git
 .github
+.gitignore
+.vscode
 compose*.yml
 Dockerfile*
 LICENSE
