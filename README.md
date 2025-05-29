@@ -19,25 +19,25 @@ This repository provides Docker configurations for running [Canvas LMS](https://
 ### Debian-based Setup
 
 ```bash
-task setup-debian
+task setup DISTRIBUTION=debian
 ```
 
 ### Alpine-based Setup
 
 ```bash
-task setup-alpine
+task setup DISTRIBUTION=alpine
 ```
 
 ### Debian-based Run
 
 ```bash
-task run-debian
+task run DISTRIBUTION=debian
 ```
 
 ### Alpine-based Run
 
 ```bash
-task run-alpine
+task run DISTRIBUTION=alpine
 ```
 
 ## Configuration
@@ -89,13 +89,13 @@ The environment provides:
 ### Debian-based Shutdown
 
 ```bash
-task shutdown-debian
+task shutdown DISTRIBUTION=debian
 ```
 
 ### Alpine-based Shutdown
 
 ```bash
-task shutdown-alpine
+task shutdown DISTRIBUTION=alpine
 ```
 
 ## License

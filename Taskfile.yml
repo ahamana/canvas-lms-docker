@@ -8,86 +8,42 @@ tasks:
     cmd: task -a
     silent: true
 
-  setup-alpine:
-    cmd:
-      task: setup
-      vars:
-        COMPOSE_FILE: compose.yml:compose.alpine.yml
-        COMPOSE_PROJECT_NAME: canvas-lms-alpine
-
-  run-alpine:
-    cmd:
-      task: run
-      vars:
-        COMPOSE_FILE: compose.yml:compose.alpine.yml
-        COMPOSE_PROJECT_NAME: canvas-lms-alpine
-
-  shutdown-alpine:
-    cmd:
-      task: shutdown
-      vars:
-        COMPOSE_FILE: compose.yml:compose.alpine.yml
-        COMPOSE_PROJECT_NAME: canvas-lms-alpine
-
-  logs-alpine:
-    cmd:
-      task: logs
-      vars:
-        COMPOSE_FILE: compose.yml:compose.alpine.yml
-        COMPOSE_PROJECT_NAME: canvas-lms-alpine
-
-  setup-debian:
-    cmd:
-      task: setup
-      vars:
-        COMPOSE_FILE: compose.yml:compose.debian.yml
-        COMPOSE_PROJECT_NAME: canvas-lms-debian
-
-  run-debian:
-    cmd:
-      task: run
-      vars:
-        COMPOSE_FILE: compose.yml:compose.debian.yml
-        COMPOSE_PROJECT_NAME: canvas-lms-debian
-
-  shutdown-debian:
-    cmd:
-      task: shutdown
-      vars:
-        COMPOSE_FILE: compose.yml:compose.debian.yml
-        COMPOSE_PROJECT_NAME: canvas-lms-debian
-
-  logs-debian:
-    cmd:
-      task: logs
-      vars:
-        COMPOSE_FILE: compose.yml:compose.debian.yml
-        COMPOSE_PROJECT_NAME: canvas-lms-debian
-
   setup:
     env:
-      COMPOSE_FILE: "{{.COMPOSE_FILE}}"
-      COMPOSE_PROJECT_NAME: "{{.COMPOSE_PROJECT_NAME}}"
+      COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
+      COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
     cmd: docker compose run --rm app bundle exec rake db:initial_setup
-    internal: true
+    requires:
+      vars:
+        - name: DISTRIBUTION
+          enum: [alpine, debian]
 
   run:
     env:
-      COMPOSE_FILE: "{{.COMPOSE_FILE}}"
-      COMPOSE_PROJECT_NAME: "{{.COMPOSE_PROJECT_NAME}}"
+      COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
+      COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
     cmd: docker compose up -d {{.CLI_ARGS}}
-    internal: true
+    requires:
+      vars:
+        - name: DISTRIBUTION
+          enum: [alpine, debian]
 
   shutdown:
     env:
-      COMPOSE_FILE: "{{.COMPOSE_FILE}}"
-      COMPOSE_PROJECT_NAME: "{{.COMPOSE_PROJECT_NAME}}"
+      COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
+      COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
     cmd: docker compose down {{.CLI_ARGS}}
-    internal: true
+    requires:
+      vars:
+        - name: DISTRIBUTION
+          enum: [alpine, debian]
 
   logs:
     env:
-      COMPOSE_FILE: "{{.COMPOSE_FILE}}"
-      COMPOSE_PROJECT_NAME: "{{.COMPOSE_PROJECT_NAME}}"
+      COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
+      COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
     cmd: docker compose logs -f {{.CLI_ARGS}}
-    internal: true
+    requires:
+      vars:
+        - name: DISTRIBUTION
+          enum: [alpine, debian]
