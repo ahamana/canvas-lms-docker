@@ -16,7 +16,9 @@ tasks:
     requires:
       vars:
         - name: DISTRIBUTION
-          enum: [alpine, debian]
+          enum:
+            - alpine
+            - debian
 
   run:
     env:
@@ -26,7 +28,9 @@ tasks:
     requires:
       vars:
         - name: DISTRIBUTION
-          enum: [alpine, debian]
+          enum:
+            - alpine
+            - debian
 
   shutdown:
     env:
@@ -36,7 +40,9 @@ tasks:
     requires:
       vars:
         - name: DISTRIBUTION
-          enum: [alpine, debian]
+          enum:
+            - alpine
+            - debian
 
   logs:
     env:
@@ -46,4 +52,6 @@ tasks:
     requires:
       vars:
         - name: DISTRIBUTION
-          enum: [alpine, debian]
+          enum:
+            - alpine
+            - debian
