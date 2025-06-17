@@ -132,6 +132,7 @@ EOF
 
 COPY --link --from=builder --chown=${CANVAS_USER_ID} ${GEM_HOME} ${GEM_HOME}
 COPY --link --from=builder --chown=${CANVAS_USER_ID} ${CANVAS_HOME} ${CANVAS_HOME}
+COPY --link docker-entrypoint.sh /usr/local/bin/
 
 WORKDIR ${CANVAS_HOME}
 
@@ -139,4 +140,6 @@ USER ${CANVAS_USER}
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "~/script/canvas_init start && bundle exec rails server -b 0.0.0.0"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
