@@ -121,6 +121,7 @@ ENV RUBYLIB=${CANVAS_HOME}
 
 RUN <<EOF
 apk add --no-cache \
+    bash \
     brotli-libs \
     git \
     icu-libs \
@@ -145,4 +146,4 @@ USER ${CANVAS_USER}
 
 EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["sh", "-c", "~/script/canvas_init start && bundle exec rails server -b 0.0.0.0"]

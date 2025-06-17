@@ -50,28 +50,32 @@ The following default values are set in the `.env` file:
 
 - `EMAIL_DOMAIN`: example.com
   - Specifies the domain part of email addresses.
-- `EMAIL_HOST_USER`: (empty)
-  - Authentication username for the SMTP server. Can be left empty when using Mailpit.
-- `EMAIL_HOST_PASSWORD`: (empty)
-  - Authentication password for the SMTP server. Can be left empty when using Mailpit.
+- `EMAIL_HOST_USER`: user
+  - Authentication username for the SMTP server.
+- `EMAIL_HOST_PASSWORD`: password
+  - Authentication password for the SMTP server.
 - `EMAIL_SENDER_ADDRESS`: canvas@${EMAIL_DOMAIN}
   - Email address used as the sender for outgoing emails.
 - `EMAIL_SENDER_NAME`: Instructure Canvas
   - Display name used for outgoing emails.
 - `CANVAS_LMS_DOMAIN`: localhost
-  - Specifies the domain name for the Canvas LMS application. Can be kept as "localhost" for local environments.
+  - Specifies the domain name for the Canvas LMS application.<br>
+    Can be kept as "localhost" for local environments.
 - `CANVAS_LMS_ADMIN_EMAIL`: admin@${EMAIL_DOMAIN}
-  - Email address for the administrator account. Automatically generated from the email domain.
+  - Email address for the administrator account.<br>
+    Automatically generated from the email domain.
 - `CANVAS_LMS_ADMIN_PASSWORD`: password
   - Password for the administrator account.
 - `CANVAS_LMS_ACCOUNT_NAME`: Canvas Admin
   - Name for the main Canvas account.
 - `CANVAS_LMS_STATS_COLLECTION`: opt_out
-  - Controls usage statistics collection. Options: opt_in, opt_out, or anonymized.
+  - Controls usage statistics collection.<br>
+    Options: opt_in, opt_out, or anonymized.
 - `POSTGRES_USER`: canvas
   - PostgreSQL database username.
 - `POSTGRES_PASSWORD`: canvas
-  - PostgreSQL database password. Recommended to change to a strong password in production environments.
+  - PostgreSQL database password.<br>
+    Recommended to change to a strong password in production environments.
 - `POSTGRES_DB`: canvas
   - PostgreSQL database name.
 - `TZ`: Asia/Tokyo
