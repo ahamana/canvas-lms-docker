@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-if [ -f ${PWD}/script/canvas_init ]; then
-    ${PWD}/script/canvas_init start
+if [ -f ${HOME}/script/canvas_init ]; then
+  ${HOME}/script/canvas_init start
 fi
 
 exec "$@"
