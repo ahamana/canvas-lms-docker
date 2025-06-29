@@ -6,6 +6,8 @@ ARG CANVAS_HOME=/opt/canvas
 
 FROM node:${NODE_VERSION}-bookworm-slim AS node
 
+RUN corepack disable yarn
+
 FROM ruby:${RUBY_VERSION}-bookworm AS builder
 
 ARG GIT_BRANCH=prod
@@ -29,7 +31,6 @@ WORKDIR ${CANVAS_HOME}
 RUN <<EOF
 npm update -g npm
 
-corepack disable yarn
 corepack enable yarn
 
 yarn config set network-timeout 600000
