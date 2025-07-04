@@ -19,7 +19,6 @@ jobs:
           - alpine
           - debian
         ruby-version:
-          - "3.3"
           - "3.4"
         platform:
           - linux/amd64
