@@ -1,7 +1,9 @@
 {
   "recommendations": [
     "esbenp.prettier-vscode",
+    "exiasr.hadolint",
     "github.vscode-github-actions",
-    "redhat.vscode-yaml"
+    "redhat.vscode-yaml",
+    "streetsidesoftware.code-spell-checker"
   ]
 }
