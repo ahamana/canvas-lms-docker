@@ -38,8 +38,8 @@ services:
         condition: service_started
 
   db:
-    image: postgres:17
     container_name: postgres
+    image: postgres:17
     ports:
       - published: 5432
         target: 5432
@@ -56,11 +56,11 @@ services:
         target: /var/lib/postgresql/data
 
   redis:
-    image: redis:8
     container_name: redis
+    image: redis:8
+    command: redis-server --appendonly yes
     environment:
       TZ: ${TZ}
-    command: redis-server --appendonly yes
     healthcheck:
       test: redis-cli ping
     volumes:
@@ -69,14 +69,14 @@ services:
         target: /data
 
   smtp:
-    image: axllent/mailpit
     container_name: mailpit
-    environment:
-      MP_SMTP_AUTH: ${EMAIL_HOST_USER}:${EMAIL_HOST_PASSWORD}
-      MP_SMTP_AUTH_ALLOW_INSECURE: true
+    image: axllent/mailpit
     ports:
       - published: 8025
         target: 8025
+    environment:
+      MP_SMTP_AUTH: ${EMAIL_HOST_USER}:${EMAIL_HOST_PASSWORD}
+      MP_SMTP_AUTH_ALLOW_INSECURE: true
 
 volumes:
   app-volume:
