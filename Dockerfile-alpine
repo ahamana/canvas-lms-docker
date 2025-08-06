@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=22
+ARG NODE_VERSION=lts
 ARG RUBY_VERSION=3.4
 ARG CANVAS_HOME=/opt/canvas
 
