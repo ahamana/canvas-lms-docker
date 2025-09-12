@@ -8,7 +8,7 @@ tasks:
     cmd: task -a
     silent: true
 
-  setup:
+  setup: &setup
     env:
       COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
       COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
@@ -21,37 +21,13 @@ tasks:
             - debian
 
   run:
-    env:
-      COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
-      COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
+    <<: *setup
     cmd: docker compose up -d {{.CLI_ARGS}}
-    requires:
-      vars:
-        - name: DISTRIBUTION
-          enum:
-            - alpine
-            - debian
 
   shutdown:
-    env:
-      COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
-      COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
+    <<: *setup
     cmd: docker compose down {{.CLI_ARGS}}
-    requires:
-      vars:
-        - name: DISTRIBUTION
-          enum:
-            - alpine
-            - debian
 
   logs:
-    env:
-      COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
-      COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
+    <<: *setup
     cmd: docker compose logs -f {{.CLI_ARGS}}
-    requires:
-      vars:
-        - name: DISTRIBUTION
-          enum:
-            - alpine
-            - debian
