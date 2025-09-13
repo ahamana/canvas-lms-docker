@@ -119,6 +119,7 @@ apt-get update
 apt-get install -y --no-install-recommends \
     git \
     libbrotli1 \
+    libicu76 \
     libidn12 \
     libpq5 \
     libsqlite3-0 \
