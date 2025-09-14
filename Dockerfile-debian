@@ -117,6 +117,7 @@ ENV RUBYLIB=${CANVAS_HOME}
 RUN <<EOF
 apt-get update
 apt-get install -y --no-install-recommends \
+    file \
     git \
     libbrotli1 \
     libicu76 \
@@ -139,6 +140,8 @@ COPY --link docker-entrypoint.sh /usr/local/bin/
 WORKDIR ${CANVAS_HOME}
 
 USER ${CANVAS_USER}
+
+RUN mkdir -p tmp/files
 
 EXPOSE 3000
 
