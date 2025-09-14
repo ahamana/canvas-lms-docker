@@ -27,8 +27,11 @@ services:
       TZ: ${TZ}
     volumes:
       - type: volume
-        source: app-volume
+        source: app-files
         target: /opt/canvas/tmp/files
+      - type: volume
+        source: app-log
+        target: /opt/canvas/log
     depends_on:
       db:
         condition: service_healthy
@@ -52,7 +55,7 @@ services:
       test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
     volumes:
       - type: volume
-        source: db-volume
+        source: db-data
         target: /var/lib/postgresql/data
 
   redis:
@@ -65,7 +68,7 @@ services:
       test: redis-cli ping
     volumes:
       - type: volume
-        source: redis-volume
+        source: redis-data
         target: /data
 
   smtp:
@@ -79,6 +82,7 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: true
 
 volumes:
-  app-volume:
-  db-volume:
-  redis-volume:
+  app-files:
+  app-log:
+  db-data:
+  redis-data:
