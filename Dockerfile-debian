@@ -52,10 +52,8 @@ rm -rf \
     hooks \
     inst-cli \
     jest \
-    log/* \
     node_modules \
     patches \
-    tmp/* \
     ui \
     ui-build
 rm \
@@ -80,27 +78,31 @@ rm \
     .sentryignore \
     .stylelintrc \
     .yarnrc.yml \
-    CONTRIBUTING.md \
-    COPYRIGHT \
-    Dockerfile* \
-    Jenkinsfile* \
-    LICENSE \
-    README.md \
-    SECURITY.md \
     biome.json \
     code_of_conduct.md \
     config/*.yml.* \
+    CONTRIBUTING.md \
+    COPYRIGHT \
     docker-compose* \
+    Dockerfile* \
     eslint.config*.js \
     gulpfile.js \
     issue_template.md \
+    Jenkinsfile* \
     jest.config.js \
+    LICENSE \
     package.json \
+    README.md \
     renovate.json \
     rspack.config.js \
+    SECURITY.md \
     tsconfig.json \
     vitest.*.ts \
     yarn.lock
+find \
+    -name .keep \
+    -type f \
+    -delete
 EOF
 
 COPY --link canvas ${CANVAS_HOME}
