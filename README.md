@@ -67,10 +67,14 @@ The following default values are set in the `.env` file:
 - `CANVAS_LMS_ADMIN_PASSWORD`: password
   - Password for the administrator account.
 - `CANVAS_LMS_ACCOUNT_NAME`: Canvas Admin
-  - Name for the main Canvas account.
+  - Name for the main Canvas LMS account.
 - `CANVAS_LMS_STATS_COLLECTION`: opt_out
   - Controls usage statistics collection.<br>
     Options: opt_in, opt_out, or anonymized.
+- `CANVAS_LMS_ENCRYPTION_KEY`: 12345678901234567890
+  - Encryption key used by Canvas LMS for securing sensitive data.<br>
+    This should be a unique, long string (at least 20 characters or more).<br>
+    **Important**: Change this to a secure, random value in production environments.
 - `POSTGRES_USER`: canvas
   - PostgreSQL database username.
 - `POSTGRES_PASSWORD`: canvas
