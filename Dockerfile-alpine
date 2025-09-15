@@ -21,6 +21,7 @@ RUN apk add --no-cache \
     bash \
     libidn-dev \
     libpq-dev \
+    python3 \
     shared-mime-info \
     sqlite-dev \
     tzdata \
