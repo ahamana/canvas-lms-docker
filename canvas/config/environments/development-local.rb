@@ -1,3 +1,2 @@
-config.cache_classes = true
+config.enable_reloading = false
 config.action_controller.perform_caching = true
-config.action_view.cache_template_loading = true
