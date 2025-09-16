@@ -1,6 +1,5 @@
 default: &default
   storage: local
-  path_prefix: tmp/files
 
 production:
   <<: *default
