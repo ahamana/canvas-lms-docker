@@ -13,6 +13,9 @@ FROM ruby:${RUBY_VERSION}-alpine AS builder
 ARG GIT_BRANCH=prod
 ARG CANVAS_HOME
 
+ENV RAILS_ENV=production
+ENV COMPILE_ASSETS_BRAND_CONFIGS=0
+
 COPY --link --from=node /usr/local/bin /usr/local/bin
 COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
@@ -38,15 +41,11 @@ npm update -g npm
 
 corepack enable yarn
 
-yarn config set network-timeout 600000
-yarn config set network-concurrency 1
-yarn install --pure-lockfile
-
 # To address potential issues with `Error loading shared library ld-linux-aarch64.so.1`,
 # Bundler is configured to build native extensions for the local environment by setting `bundle config set force_ruby_platform true`.
 bundle config set force_ruby_platform true
 bundle install
-bundle exec rails canvas:compile_assets_dev
+bundle exec rails canvas:compile_assets
 
 rm -rf \
     .devcontainer \
@@ -99,6 +98,7 @@ rm \
     Jenkinsfile* \
     jest.config.js \
     LICENSE \
+    log/* \
     package.json \
     README.md \
     renovate.json \
