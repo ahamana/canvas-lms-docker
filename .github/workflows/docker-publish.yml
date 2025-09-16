@@ -58,7 +58,7 @@ jobs:
         id: build
         uses: docker/build-push-action@v6
         with:
-          file: Dockerfile-${{ matrix.os }}
+          file: Dockerfile.${{ matrix.os }}
           build-args: |
             RUBY_VERSION=${{ matrix.ruby-version }}
           labels: ${{ env.DOCKER_METADATA_OUTPUT_LABELS }}
