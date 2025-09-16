@@ -20,5 +20,5 @@ jobs:
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v3.2.0
         with:
-          dockerfile: Dockerfile-${{ matrix.os }}
+          dockerfile: Dockerfile.${{ matrix.os }}
           no-fail: true
