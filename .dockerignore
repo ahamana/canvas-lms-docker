@@ -5,6 +5,7 @@
 .github
 .gitignore
 .vscode
+canvas
 compose*.yml
 Dockerfile*
 LICENSE
