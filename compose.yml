@@ -27,6 +27,50 @@ services:
       EMAIL_SENDER_NAME: ${EMAIL_SENDER_NAME}
       TZ: ${TZ}
     volumes:
+      - type: bind
+        source: canvas/config/cache_store.yml
+        target: /opt/canvas/config/cache_store.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/database.yml
+        target: /opt/canvas/config/database.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/delayed_jobs.yml
+        target: /opt/canvas/config/delayed_jobs.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/domain.yml
+        target: /opt/canvas/config/domain.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/dynamic_settings.yml
+        target: /opt/canvas/config/dynamic_settings.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/file_store.yml
+        target: /opt/canvas/config/file_store.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/logging.yml
+        target: /opt/canvas/config/logging.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/outgoing_mail.yml
+        target: /opt/canvas/config/outgoing_mail.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/redis.yml
+        target: /opt/canvas/config/redis.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/security.yml
+        target: /opt/canvas/config/security.yml
+        read_only: true
+      - type: bind
+        source: canvas/config/environments/production-local.rb
+        target: /opt/canvas/config/environments/production-local.rb
+        read_only: true
       - type: volume
         source: app-files
         target: /opt/canvas/tmp/files

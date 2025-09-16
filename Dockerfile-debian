@@ -105,8 +105,6 @@ find \
     -delete
 EOF
 
-COPY --link canvas ${CANVAS_HOME}
-
 FROM ruby:${RUBY_VERSION}-slim-trixie AS runner
 
 ARG CANVAS_HOME
