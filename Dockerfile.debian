@@ -39,9 +39,11 @@ corepack enable yarn
 bundle install
 bundle exec rails canvas:compile_assets
 
+# https://github.com/instructure/QTIMigrationTool/wiki
+git clone --depth 1 https://github.com/instructure/QTIMigrationTool.git vendor/QTIMigrationTool
+
 rm -rf \
     .devcontainer \
-    .git \
     .github \
     .storybook \
     .vscode \
@@ -63,7 +65,6 @@ rm \
     .dockerignore \
     .editorconfig \
     .git-blame-ignore-revs \
-    .gitignore \
     .gitmessage \
     .groovylintrc.json \
     .i18nignore \
@@ -100,8 +101,15 @@ rm \
     vitest.*.ts \
     yarn.lock
 find \
-    -name .keep \
+    -type d \
+    -name .git \
+    -exec rm -rf {} +
+find \
     -type f \
+    \( \
+        -name .gitignore \
+    -or -name .keep \
+    \) \
     -delete
 EOF
 
@@ -126,6 +134,8 @@ apt-get install -y --no-install-recommends \
     libpq5 \
     libsqlite3-0 \
     libxmlsec1-openssl \
+    python3 \
+    python3-lxml \
     shared-mime-info
 apt-get clean
 rm -rf /var/lib/apt/lists/*

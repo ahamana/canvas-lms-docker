@@ -47,9 +47,11 @@ bundle config set force_ruby_platform true
 bundle install
 bundle exec rails canvas:compile_assets
 
+# https://github.com/instructure/QTIMigrationTool/wiki
+git clone --depth 1 https://github.com/instructure/QTIMigrationTool.git vendor/QTIMigrationTool
+
 rm -rf \
     .devcontainer \
-    .git \
     .github \
     .storybook \
     .vscode \
@@ -71,7 +73,6 @@ rm \
     .dockerignore \
     .editorconfig \
     .git-blame-ignore-revs \
-    .gitignore \
     .gitmessage \
     .groovylintrc.json \
     .i18nignore \
@@ -108,8 +109,15 @@ rm \
     vitest.*.ts \
     yarn.lock
 find \
-    -name .keep \
+    -type d \
+    -name .git \
+    -exec rm -rf {} +
+find \
     -type f \
+    \( \
+        -name .gitignore \
+    -or -name .keep \
+    \) \
     -delete
 EOF
 
@@ -132,6 +140,8 @@ apk add --no-cache \
     icu-libs \
     libidn \
     libpq \
+    py3-lxml \
+    python3 \
     shared-mime-info \
     sqlite-libs \
     tzdata \
