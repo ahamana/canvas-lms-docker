@@ -1,7 +1,5 @@
 default: &default
   encryption_key: <%= ENV.fetch('CANVAS_LMS_ENCRYPTION_KEY') %>
-  lti_iss: https://canvas.instructure.com
-  lti_grant_host: <%= ENV.fetch('CANVAS_LMS_DOMAIN') %>
 
 production:
   <<: *default

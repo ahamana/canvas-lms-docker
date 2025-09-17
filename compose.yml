@@ -44,10 +44,6 @@ services:
         target: /opt/canvas/config/domain.yml
         read_only: true
       - type: bind
-        source: canvas/config/dynamic_settings.yml
-        target: /opt/canvas/config/dynamic_settings.yml
-        read_only: true
-      - type: bind
         source: canvas/config/file_store.yml
         target: /opt/canvas/config/file_store.yml
         read_only: true
