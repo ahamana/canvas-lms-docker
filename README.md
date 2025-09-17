@@ -44,9 +44,7 @@ task run DISTRIBUTION=alpine
 
 The environment is configured through the `.env` file which contains all the necessary environment variables.
 
-### Default Settings
-
-The following default values are set in the `.env` file:
+### Main Settings
 
 - `EMAIL_DOMAIN`: example.com
   - Specifies the domain part of email addresses.
@@ -70,7 +68,12 @@ The following default values are set in the `.env` file:
   - Name for the main Canvas LMS account.
 - `CANVAS_LMS_STATS_COLLECTION`: opt_out
   - Controls usage statistics collection.<br>
-    Options: opt_in, opt_out, or anonymized.
+    Options: `opt_in`, `opt_out`, or `anonymized`.
+- `CANVAS_LMS_STORAGE_TYPE`: local
+  - Specifies the storage type for Canvas LMS file storage.<br>
+    Options: `local` or `s3`.
+  - Set to `local` to store files on the local file system.
+  - Set to `s3` to store files in Amazon S3 or Amazon S3 compatible object storage.
 - `CANVAS_LMS_ENCRYPTION_KEY`: 12345678901234567890
   - Encryption key used by Canvas LMS for securing sensitive data.<br>
     This should be a unique, long string (at least 20 characters or more).<br>
@@ -84,6 +87,28 @@ The following default values are set in the `.env` file:
   - PostgreSQL database name.
 - `TZ`: UTC
   - Specifies the timezone.
+
+### Amazon S3 Settings
+
+- `AWS_S3_BUCKET`:
+  - Amazon S3 bucket name for storing Canvas LMS files.
+  - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
+- `AWS_ACCESS_KEY_ID`:
+  - AWS access key ID for authentication.
+  - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
+- `AWS_SECRET_ACCESS_KEY`:
+  - AWS secret access key for authentication.
+  - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
+- `AWS_REGION`:
+  - AWS region where the S3 bucket is located.
+  - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
+- `AWS_ENDPOINT`:
+  - Custom endpoint for Amazon S3 compatible object storage (e.g. MinIO).
+  - Required when using Amazon S3 compatible object storage instead of Amazon S3.
+
+**Note**:<br>
+All AWS settings except `AWS_ENDPOINT` are required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.<br>
+The `AWS_ENDPOINT` setting is required only when using Amazon S3 compatible object storage services like MinIO.
 
 The environment provides:
 

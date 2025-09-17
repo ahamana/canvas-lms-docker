@@ -1,5 +1,5 @@
 default: &default
-  storage: local
+  storage: <%= ENV.fetch('CANVAS_LMS_STORAGE_TYPE') %>
 
 production:
   <<: *default
