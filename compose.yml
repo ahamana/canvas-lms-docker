@@ -10,6 +10,7 @@ services:
       CANVAS_LMS_ADMIN_PASSWORD: ${CANVAS_LMS_ADMIN_PASSWORD}
       CANVAS_LMS_ACCOUNT_NAME: ${CANVAS_LMS_ACCOUNT_NAME}
       CANVAS_LMS_STATS_COLLECTION: ${CANVAS_LMS_STATS_COLLECTION}
+      CANVAS_LMS_STORAGE_TYPE: ${CANVAS_LMS_STORAGE_TYPE}
       CANVAS_LMS_ENCRYPTION_KEY: ${CANVAS_LMS_ENCRYPTION_KEY}
       DB_HOST: db
       DB_PORT: 5432
@@ -25,8 +26,17 @@ services:
       EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
       EMAIL_SENDER_ADDRESS: ${EMAIL_SENDER_ADDRESS}
       EMAIL_SENDER_NAME: ${EMAIL_SENDER_NAME}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      AWS_ENDPOINT: ${AWS_ENDPOINT}
       TZ: ${TZ}
     volumes:
+      - type: bind
+        source: canvas/config/amazon_s3.yml
+        target: /opt/canvas/config/amazon_s3.yml
+        read_only: true
       - type: bind
         source: canvas/config/cache_store.yml
         target: /opt/canvas/config/cache_store.yml
@@ -80,6 +90,10 @@ services:
         condition: service_healthy
       smtp:
         condition: service_started
+      minio:
+        condition: service_healthy
+    # extra_hosts:
+    #   localhost: host-gateway
 
   db:
     container_name: postgres
@@ -122,8 +136,28 @@ services:
       MP_SMTP_AUTH: ${EMAIL_HOST_USER}:${EMAIL_HOST_PASSWORD}
       MP_SMTP_AUTH_ALLOW_INSECURE: true
 
+  # minio:
+  #   container_name: minio
+  #   image: minio/minio
+  #   ports:
+  #     - published: 9000
+  #       target: 9000
+  #     - published: 9001
+  #       target: 9001
+  #   command: server /data --console-address :9001
+  #   environment:
+  #     MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
+  #     MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
+  #   healthcheck:
+  #     test: mc ready local
+  #   volumes:
+  #     - type: volume
+  #       source: minio-data
+  #       target: /data
+
 volumes:
   app-files:
   app-log:
   db-data:
   redis-data:
+  # minio-data:
