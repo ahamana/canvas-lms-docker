@@ -57,6 +57,8 @@ jobs:
       - name: Build and push by digest
         id: build
         uses: docker/build-push-action@v6
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: false
         with:
           file: Dockerfile.${{ matrix.os }}
           build-args: |
@@ -66,8 +68,6 @@ jobs:
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           cache-from: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }}-${{ env.PLATFORM_PAIR }}
           cache-to: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }}-${{ env.PLATFORM_PAIR }},mode=max
-        env:
-          DOCKER_BUILD_RECORD_UPLOAD: false
 
       - name: Export digest
         run: |
