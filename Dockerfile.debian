@@ -27,7 +27,13 @@ apt-get install -y --no-install-recommends \
 EOF
 
 ADD --link https://api.github.com/repos/instructure/canvas-lms/git/refs/heads/${GIT_BRANCH} /dev/null
-RUN git clone -b ${GIT_BRANCH} --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
+ADD --link https://api.github.com/repos/instructure/QTIMigrationTool/git/refs/heads/ /dev/null
+
+RUN <<EOF
+git clone -b ${GIT_BRANCH} --depth 1 https://github.com/instructure/canvas-lms.git ${CANVAS_HOME}
+# https://github.com/instructure/QTIMigrationTool/wiki
+git clone --depth 1 https://github.com/instructure/QTIMigrationTool.git ${CANVAS_HOME}/vendor/QTIMigrationTool
+EOF
 
 WORKDIR ${CANVAS_HOME}
 
@@ -38,9 +44,6 @@ corepack enable yarn
 
 bundle install
 bundle exec rails canvas:compile_assets
-
-# https://github.com/instructure/QTIMigrationTool/wiki
-git clone --depth 1 https://github.com/instructure/QTIMigrationTool.git vendor/QTIMigrationTool
 
 rm -rf \
     .devcontainer \
