@@ -3,9 +3,7 @@ default: &default
   access_key_id: <%= ENV.fetch('AWS_ACCESS_KEY_ID') %>
   secret_access_key: <%= ENV.fetch('AWS_SECRET_ACCESS_KEY') %>
   region: <%= ENV.fetch('AWS_REGION') %>
-  <% if ENV.fetch('AWS_ENDPOINT').present? %>
   endpoint: <%= ENV.fetch('AWS_ENDPOINT') %>
-  <% end %>
   # If your storage use path-style bucket addresses.
   # force_path_style: true
 
