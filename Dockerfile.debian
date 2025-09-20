@@ -43,7 +43,8 @@ npm update -g npm
 corepack enable yarn
 
 bundle install
-bundle exec rails canvas:compile_assets
+
+bin/rails canvas:compile_assets
 
 rm -rf \
     .devcontainer \
@@ -158,4 +159,4 @@ RUN mkdir -p ${CANVAS_LOCAL_STORAGE_PATH_PREFIX}
 
 EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]

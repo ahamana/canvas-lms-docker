@@ -51,7 +51,8 @@ corepack enable yarn
 # Bundler is configured to build native extensions for the local environment by setting `bundle config set force_ruby_platform true`.
 bundle config set force_ruby_platform true
 bundle install
-bundle exec rails canvas:compile_assets
+
+bin/rails canvas:compile_assets
 
 rm -rf \
     .devcontainer \
@@ -166,4 +167,4 @@ RUN mkdir -p ${CANVAS_LOCAL_STORAGE_PATH_PREFIX}
 
 EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
