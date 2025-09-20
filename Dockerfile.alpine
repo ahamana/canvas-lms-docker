@@ -50,7 +50,7 @@ corepack enable yarn
 bundle config set force_ruby_platform true
 bundle install
 
-bin/rails canvas:compile_assets
+rails canvas:compile_assets
 
 rm -rf \
     .devcontainer \
@@ -163,4 +163,4 @@ RUN mkdir -p ${CANVAS_LOCAL_STORAGE_PATH_PREFIX}
 
 EXPOSE 3000
 
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", "0.0.0.0"]

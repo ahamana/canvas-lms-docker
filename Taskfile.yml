@@ -12,7 +12,7 @@ tasks:
     env:
       COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
       COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
-    cmd: docker compose run --rm app bin/rails db:initial_setup
+    cmd: docker compose run --rm app rails db:initial_setup
     requires:
       vars:
         - name: DISTRIBUTION
