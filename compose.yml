@@ -73,10 +73,10 @@ x-canvas: &canvas
       target: /opt/canvas/config/environments/production-local.rb
       read_only: true
     - type: volume
-      source: app-files
+      source: canvas-files
       target: /opt/canvas/tmp/files
     - type: volume
-      source: app-log
+      source: canvas-log
       target: /opt/canvas/log
   depends_on:
     db:
@@ -164,8 +164,8 @@ services:
   #       target: /data
 
 volumes:
-  app-files:
-  app-log:
+  canvas-files:
+  canvas-log:
   db-data:
   redis-data:
   # minio-data:
