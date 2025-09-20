@@ -1,3 +1,6 @@
 services:
-  app:
+  app: &canvas-image
     image: ahamana/canvas-lms:ruby3.4-debian
+
+  job:
+    <<: *canvas-image
