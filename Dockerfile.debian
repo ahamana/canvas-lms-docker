@@ -123,8 +123,6 @@ ARG CANVAS_USER_ID=1000
 ARG CANVAS_USER=canvas
 ARG CANVAS_LOCAL_STORAGE_PATH_PREFIX=tmp/files
 
-ENV RUBYLIB=${CANVAS_HOME}
-
 RUN <<EOF
 apt-get update
 apt-get install -y --no-install-recommends \
