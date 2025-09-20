@@ -43,8 +43,6 @@ EOF
 WORKDIR ${CANVAS_HOME}
 
 RUN <<EOF
-npm update -g npm
-
 corepack enable yarn
 
 # To address potential issues with `Error loading shared library ld-linux-aarch64.so.1`,

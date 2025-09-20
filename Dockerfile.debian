@@ -38,8 +38,6 @@ EOF
 WORKDIR ${CANVAS_HOME}
 
 RUN <<EOF
-npm update -g npm
-
 corepack enable yarn
 
 bundle install
