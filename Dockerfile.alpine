@@ -131,6 +131,8 @@ ARG CANVAS_USER_ID=1000
 ARG CANVAS_USER=canvas
 ARG CANVAS_LOCAL_STORAGE_PATH_PREFIX=tmp/files
 
+ENV BINDING=0.0.0.0
+
 RUN <<EOF
 apk add --no-cache \
     bash \
@@ -163,4 +165,4 @@ RUN mkdir -p ${CANVAS_LOCAL_STORAGE_PATH_PREFIX}
 
 EXPOSE 3000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server"]
