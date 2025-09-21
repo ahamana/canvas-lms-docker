@@ -123,7 +123,7 @@ find \
     -delete
 EOF
 
-FROM ruby:${RUBY_VERSION}-alpine AS runner
+FROM ruby:${RUBY_VERSION}-alpine
 
 ARG CANVAS_HOME
 ARG CANVAS_GROUP_ID=1000
