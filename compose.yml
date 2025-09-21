@@ -91,9 +91,9 @@ x-canvas: &canvas
   #   localhost: host-gateway
 
 services:
-  app:
+  web:
     <<: *canvas
-    container_name: canvas-app
+    container_name: canvas-web
     ports:
       - published: 80
         target: 3000
