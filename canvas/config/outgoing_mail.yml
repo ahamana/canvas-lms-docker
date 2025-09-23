@@ -8,11 +8,8 @@ default: &default
   outgoing_address: <%= ENV.fetch('EMAIL_SENDER_ADDRESS') %>
   default_name: <%= ENV.fetch('EMAIL_SENDER_NAME') %>
 
-production:
-  <<: *default
+production: *default
 
-development:
-  <<: *default
+development: *default
 
-test:
-  <<: *default
+test: *default

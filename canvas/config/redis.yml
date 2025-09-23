@@ -2,11 +2,8 @@ default: &default
   url:
     - redis://<%= ENV.fetch('REDIS_HOST') %>:<%= ENV.fetch('REDIS_PORT', '6379') %>
 
-production:
-  <<: *default
+production: *default
 
-development:
-  <<: *default
+development: *default
 
-test:
-  <<: *default
+test: *default

@@ -6,8 +6,6 @@ production:
   log_context: true
   log_level: error
 
-development:
-  <<: *default
+development: *default
 
-test:
-  <<: *default
+test: *default

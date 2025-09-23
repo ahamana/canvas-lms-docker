@@ -5,16 +5,11 @@ default: &default
   port: <%= ENV.fetch('DB_PORT') %>
   username: <%= ENV.fetch('DB_USER') %>
   password: <%= ENV.fetch('DB_PASSWORD') %>
+  database: <%= ENV.fetch('DB_NAME') %>
   timeout: 5000
 
-production:
-  <<: *default
-  database: <%= ENV.fetch('DB_NAME', 'canvas_production') %>
+production: *default
 
-development:
-  <<: *default
-  database: <%= ENV.fetch('DB_NAME', 'canvas_development') %>
+development: *default
 
-test:
-  <<: *default
-  database: <%= ENV.fetch('DB_NAME', 'canvas_test') %>
+test: *default

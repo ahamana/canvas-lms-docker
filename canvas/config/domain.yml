@@ -1,11 +1,8 @@
 default: &default
   domain: <%= ENV.fetch('CANVAS_LMS_DOMAIN') %>
 
-production:
-  <<: *default
+production: *default
 
-development:
-  <<: *default
+development: *default
 
-test:
-  <<: *default
+test: *default
