@@ -1,4 +1,5 @@
 x-canvas: &canvas
+  image: ahamana/canvas-lms:ruby3.4-${DISTRIBUTION}
   restart: unless-stopped
   environment:
     CANVAS_LMS_DOMAIN: ${CANVAS_LMS_DOMAIN}

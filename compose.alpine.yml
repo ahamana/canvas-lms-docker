@@ -1,5 +1,0 @@
-services:
-  web: &canvas-image
-    image: ahamana/canvas-lms:ruby3.4-alpine
-
-  job: *canvas-image

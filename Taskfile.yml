@@ -1,8 +1,5 @@
 version: 3
 
-env:
-  COMPOSE_PATH_SEPARATOR: ":"
-
 tasks:
   default:
     cmd: task -a
@@ -10,8 +7,8 @@ tasks:
 
   setup: &setup
     env:
-      COMPOSE_FILE: compose.yml:compose.{{.DISTRIBUTION}}.yml
       COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
+      DISTRIBUTION: "{{.DISTRIBUTION}}"
     cmd: docker compose run --rm web rails db:initial_setup
     requires:
       vars:
