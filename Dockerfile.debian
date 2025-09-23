@@ -1,14 +1,15 @@
 # syntax=docker/dockerfile:1
 
+ARG DEBIAN_CODENAME=trixie
 ARG NODE_VERSION=lts
 ARG RUBY_VERSION=3.4
 ARG CANVAS_HOME=/opt/canvas
 
-FROM node:${NODE_VERSION}-trixie-slim AS node
+FROM node:${NODE_VERSION}-${DEBIAN_CODENAME}-slim AS node
 
 RUN corepack disable yarn
 
-FROM ruby:${RUBY_VERSION}-trixie AS builder
+FROM ruby:${RUBY_VERSION}-${DEBIAN_CODENAME} AS builder
 
 ARG GIT_BRANCH=prod
 ARG CANVAS_HOME
@@ -115,7 +116,7 @@ find \
     -delete
 EOF
 
-FROM ruby:${RUBY_VERSION}-slim-trixie
+FROM ruby:${RUBY_VERSION}-slim-${DEBIAN_CODENAME}
 
 ARG CANVAS_HOME
 ARG CANVAS_GROUP_ID=1000
