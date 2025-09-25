@@ -61,43 +61,33 @@ rm -rf \
     ui \
     ui-build
 rm \
-    .codeclimate.yml \
-    .dependency-cruiser.js \
-    .devcontainer.json \
+    .*.js \
+    .*.json \
+    .*.yml \
     .dive-ci \
     .dockerignore \
     .editorconfig \
     .git-blame-ignore-revs \
     .gitmessage \
-    .groovylintrc.json \
     .i18nignore \
     .i18nrc \
     .irbrc \
-    .lintstagedrc.js \
     .npmrc \
     .nvmrc \
     .rspec \
-    .rubocop.yml \
     .sentryignore \
     .stylelintrc \
-    .yarnrc.yml \
+    *.js \
+    *.json \
     *.md \
-    biome.json \
+    *.ts \
     config/*.yml.* \
     COPYRIGHT \
     docker-compose* \
     Dockerfile* \
-    eslint.config*.js \
-    gulpfile.js \
     Jenkinsfile* \
-    jest.config.js \
     LICENSE \
     log/* \
-    package.json \
-    renovate.json \
-    rspack.config.js \
-    tsconfig.json \
-    vitest.*.ts \
     yarn.lock
 find \
     -type d \
