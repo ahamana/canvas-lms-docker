@@ -6,7 +6,7 @@ This repository provides Docker configurations for running [Canvas LMS](https://
 
 - Docker configurations for both Debian and Alpine Linux environments
 - PostgreSQL database integration
-- Redis cache support
+- Valkey cache support
 - Mailpit for email testing
 
 ## Requirements
@@ -115,7 +115,7 @@ The `AWS_ENDPOINT` setting is required only when using Amazon S3 compatible obje
 The environment provides:
 
 - Database: PostgreSQL
-- Cache: Redis
+- Cache: Valkey
 - Email testing: Mailpit (accessible at `http://localhost:8025`)
 - Canvas LMS Interface: `http://localhost`
 
