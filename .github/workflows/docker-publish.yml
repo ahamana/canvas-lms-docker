@@ -20,6 +20,7 @@ jobs:
           - debian
         ruby-version:
           - "3.4"
+          - "3.5-rc"
         platform:
           - linux/amd64
           - linux/arm64
