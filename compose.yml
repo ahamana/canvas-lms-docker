@@ -15,7 +15,7 @@ x-canvas: &canvas
     DB_PASSWORD: ${POSTGRES_PASSWORD}
     DB_NAME: ${POSTGRES_DB}
     DB_DRIVER: postgresql
-    REDIS_HOST: redis
+    REDIS_HOST: valkey
     EMAIL_DOMAIN: ${EMAIL_DOMAIN}
     EMAIL_HOST: smtp
     EMAIL_PORT: 1025
@@ -83,7 +83,7 @@ x-canvas: &canvas
   depends_on:
     db:
       condition: service_healthy
-    redis:
+    valkey:
       condition: service_healthy
     smtp:
       condition: service_started
@@ -124,18 +124,18 @@ services:
         source: db-data
         target: /var/lib/postgresql/data
 
-  redis:
-    container_name: redis
-    image: redis:8
+  valkey:
+    container_name: valkey
+    image: valkey/valkey:8
     restart: unless-stopped
-    command: redis-server --appendonly yes
+    command: valkey-server --appendonly yes
     environment:
       TZ: ${TZ}
     healthcheck:
-      test: redis-cli ping
+      test: valkey-cli ping
     volumes:
       - type: volume
-        source: redis-data
+        source: valkey-data
         target: /data
 
   smtp:
@@ -173,5 +173,5 @@ volumes:
   canvas-files:
   canvas-log:
   db-data:
-  redis-data:
+  valkey-data:
   # minio-data:
