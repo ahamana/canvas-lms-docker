@@ -6,7 +6,7 @@
 .gitignore
 .vscode
 canvas
-compose*.yml
+compose.yml
 Dockerfile*
 LICENSE
 README.md
