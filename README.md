@@ -90,19 +90,19 @@ The environment is configured through the `.env` file which contains all the nec
 
 ### Amazon S3 Settings
 
-- `AWS_S3_BUCKET`:
+- `AWS_S3_BUCKET`
   - Amazon S3 bucket name for storing Canvas LMS files.
   - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
-- `AWS_ACCESS_KEY_ID`:
+- `AWS_ACCESS_KEY_ID`
   - AWS access key ID for authentication.
   - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
-- `AWS_SECRET_ACCESS_KEY`:
+- `AWS_SECRET_ACCESS_KEY`
   - AWS secret access key for authentication.
   - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
-- `AWS_REGION`:
+- `AWS_REGION`
   - AWS region where the Amazon S3 bucket is located.
   - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
-- `AWS_ENDPOINT`:
+- `AWS_ENDPOINT`
   - Custom endpoint for Amazon S3 compatible object storage (e.g. MinIO).
   - Required when using Amazon S3 compatible object storage instead of Amazon S3.
 
@@ -114,10 +114,15 @@ The `AWS_ENDPOINT` setting is required only when using Amazon S3 compatible obje
 
 The environment provides:
 
-- Database: PostgreSQL
-- Cache: Valkey
-- Email testing: Mailpit (accessible at `http://localhost:8025`)
-- Canvas LMS Interface: `http://localhost`
+- Database
+  - PostgreSQL
+- Cache
+  - Valkey
+- Email testing
+  - Mailpit
+    - Accessible at `http://localhost:8025`
+- Canvas LMS interface
+  - `http://localhost`
 
 ## Shutdown
 
