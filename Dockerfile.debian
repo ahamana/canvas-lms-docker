@@ -81,25 +81,21 @@ rm \
     .sentryignore \
     .stylelintrc \
     .yarnrc.yml \
+    *.md \
     biome.json \
-    code_of_conduct.md \
     config/*.yml.* \
-    CONTRIBUTING.md \
     COPYRIGHT \
     docker-compose* \
     Dockerfile* \
     eslint.config*.js \
     gulpfile.js \
-    issue_template.md \
     Jenkinsfile* \
     jest.config.js \
     LICENSE \
     log/* \
     package.json \
-    README.md \
     renovate.json \
     rspack.config.js \
-    SECURITY.md \
     tsconfig.json \
     vitest.*.ts \
     yarn.lock
