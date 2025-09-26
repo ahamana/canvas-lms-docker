@@ -124,7 +124,6 @@ apk add --no-cache \
     bash \
     brotli-libs \
     file \
-    git \
     icu-libs \
     libidn \
     libpq \
