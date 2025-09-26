@@ -8,7 +8,7 @@ FROM node:${NODE_VERSION}-alpine AS node
 
 RUN corepack disable yarn
 
-FROM ruby:3.3-alpine AS builder
+FROM ruby:3.4-alpine AS builder
 
 ARG GIT_BRANCH=prod
 ARG CANVAS_HOME
