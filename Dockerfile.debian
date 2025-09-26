@@ -147,3 +147,5 @@ RUN mkdir -p ${CANVAS_LOCAL_STORAGE_PATH_PREFIX}
 EXPOSE ${RAILS_PORT}
 
 CMD ["rails", "server"]
+
+# vim:set filetype=dockerfile:
