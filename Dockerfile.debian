@@ -61,9 +61,6 @@ rm -rf \
     ui \
     ui-build
 rm \
-    .*.js \
-    .*.json \
-    .*.yml \
     .dive-ci \
     .dockerignore \
     .editorconfig \
@@ -77,10 +74,6 @@ rm \
     .rspec \
     .sentryignore \
     .stylelintrc \
-    *.js \
-    *.json \
-    *.md \
-    *.ts \
     config/*.yml.* \
     COPYRIGHT \
     docker-compose* \
@@ -89,6 +82,14 @@ rm \
     LICENSE \
     log/* \
     yarn.lock
+rm \
+    .*.js \
+    .*.json \
+    .*.yml \
+    *.js \
+    *.json \
+    *.md \
+    *.ts
 find \
     -type d \
     -name .git \
