@@ -1,0 +1,23 @@
+name: Trivy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - alpine
+          - debian
+        ruby-version:
+          - "3.4"
+          - "3.5-rc"
+
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-ref: ${{ github.repository_owner }}/canvas-lms:ruby${{ matrix.ruby-version }}-${{ matrix.os }}
+          scanners: vuln
