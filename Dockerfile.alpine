@@ -64,6 +64,7 @@ rm -rf \
     inst-cli \
     jest \
     node_modules \
+    packages \
     patches \
     ui \
     ui-build
