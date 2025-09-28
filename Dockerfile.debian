@@ -128,7 +128,6 @@ apt-get install -y --no-install-recommends \
     python3 \
     python3-lxml \
     shared-mime-info
-apt-get clean
 rm -rf /var/lib/apt/lists/*
 
 groupadd -g ${CANVAS_GROUP_ID} ${CANVAS_USER}
