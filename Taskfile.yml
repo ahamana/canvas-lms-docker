@@ -9,7 +9,8 @@ tasks:
     env:
       COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
       DISTRIBUTION: "{{.DISTRIBUTION}}"
-    cmd: docker compose run --rm web rails db:initial_setup
+    cmds:
+      - cmd: docker compose run --rm web rails db:initial_setup
     requires:
       vars:
         - name: DISTRIBUTION
@@ -19,12 +20,16 @@ tasks:
 
   run:
     <<: *setup
-    cmd: docker compose up -d {{.CLI_ARGS}}
+    cmds:
+      - cmd: docker compose up -d {{.CLI_ARGS}}
+      - cmd: docker compose exec -u root web sh -c "[ -d /opt/canvas/tmp/files ] && chown canvas:canvas /opt/canvas/tmp/files || true"
 
   shutdown:
     <<: *setup
-    cmd: docker compose down {{.CLI_ARGS}}
+    cmds:
+      - cmd: docker compose down {{.CLI_ARGS}}
 
   logs:
     <<: *setup
-    cmd: docker compose logs -f {{.CLI_ARGS}}
+    cmds:
+      - cmd: docker compose logs -f {{.CLI_ARGS}}
