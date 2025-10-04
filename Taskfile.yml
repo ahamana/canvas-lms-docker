@@ -1,5 +1,8 @@
 version: 3
 
+dotenv:
+  - .env
+
 tasks:
   default:
     cmd: task -a
@@ -20,9 +23,11 @@ tasks:
 
   run:
     <<: *setup
+    vars:
+      LOCAL_STORAGE_PATH_PREFIX: '{{.CANVAS_LMS_LOCAL_STORAGE_PATH_PREFIX| default "tmp/files"}}'
     cmds:
       - cmd: docker compose up -d {{.CLI_ARGS}}
-      - cmd: docker compose exec -u root web sh -c "[ -d /opt/canvas/tmp/files ] && chown canvas:canvas /opt/canvas/tmp/files || true"
+      - cmd: docker compose exec -u root web sh -c "[ -d {{.LOCAL_STORAGE_PATH_PREFIX}} ] && chown canvas:canvas {{.LOCAL_STORAGE_PATH_PREFIX }} || true"
 
   shutdown:
     <<: *setup
