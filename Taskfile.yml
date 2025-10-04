@@ -22,7 +22,7 @@ tasks:
     <<: *setup
     cmds:
       - cmd: docker compose up -d {{.CLI_ARGS}}
-      - cmd: docker compose exec -u root web sh -c "[ -d /opt/canvas/tmp/files ] && chown canvas:canvas /opt/canvas/tmp/files || true"
+      - cmd: docker compose exec -u root web sh -c "[ -d tmp/files ] && chown canvas:canvas tmp/files || true"
 
   shutdown:
     <<: *setup
