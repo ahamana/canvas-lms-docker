@@ -53,6 +53,7 @@ bundle install
 rails canvas:compile_assets
 
 rm -rf \
+    .claude \
     .devcontainer \
     .github \
     .storybook \
