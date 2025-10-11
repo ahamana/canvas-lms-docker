@@ -8,6 +8,7 @@ x-canvas: &canvas
     CANVAS_LMS_ACCOUNT_NAME: ${CANVAS_LMS_ACCOUNT_NAME}
     CANVAS_LMS_STATS_COLLECTION: ${CANVAS_LMS_STATS_COLLECTION}
     CANVAS_LMS_STORAGE_TYPE: ${CANVAS_LMS_STORAGE_TYPE}
+    CANVAS_LMS_STORAGE_PATH_PREFIX: ${CANVAS_LMS_STORAGE_PATH_PREFIX}
     CANVAS_LMS_ENCRYPTION_KEY: ${CANVAS_LMS_ENCRYPTION_KEY}
     DB_HOST: db
     DB_PORT: 5432
@@ -76,7 +77,7 @@ x-canvas: &canvas
       read_only: true
     - type: volume
       source: canvas-files
-      target: /opt/canvas/tmp/files
+      target: /opt/canvas/${CANVAS_LMS_STORAGE_PATH_PREFIX:-tmp/files}
     - type: volume
       source: canvas-log
       target: /opt/canvas/log

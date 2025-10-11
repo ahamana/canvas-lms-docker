@@ -1,5 +1,6 @@
 default: &default
   storage: <%= ENV.fetch('CANVAS_LMS_STORAGE_TYPE') %>
+  path_prefix: <%= ENV.fetch('CANVAS_LMS_STORAGE_PATH_PREFIX') %>
 
 production: *default
 
