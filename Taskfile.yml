@@ -24,10 +24,10 @@ tasks:
   run:
     <<: *setup
     vars:
-      LOCAL_STORAGE_PATH_PREFIX: '{{.CANVAS_LMS_LOCAL_STORAGE_PATH_PREFIX | default "tmp/files"}}'
+      STORAGE_PATH_PREFIX: '{{.CANVAS_LMS_STORAGE_PATH_PREFIX | default "tmp/files"}}'
     cmds:
       - cmd: docker compose up -d {{.CLI_ARGS}}
-      - cmd: docker compose exec -u root web sh -c '[ -d {{.LOCAL_STORAGE_PATH_PREFIX}} ] && chown -R canvas:canvas {{.LOCAL_STORAGE_PATH_PREFIX | splitList "/" | first}} || true'
+      - cmd: docker compose exec -u root web sh -c '[ -d {{.STORAGE_PATH_PREFIX}} ] && chown -R canvas:canvas {{.STORAGE_PATH_PREFIX | splitList "/" | first}} || true'
 
   shutdown:
     <<: *setup

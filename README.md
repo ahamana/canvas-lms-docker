@@ -74,11 +74,10 @@ The environment is configured through the `.env` file which contains all the nec
     Options: `local` or `s3`.
   - Set to `local` to store files on the local file system.
   - Set to `s3` to store files in Amazon S3 or Amazon S3 compatible object storage.
-- `CANVAS_LMS_LOCAL_STORAGE_PATH_PREFIX`: (empty)
-  - Specifies the local storage path prefix for Canvas LMS files.<br>
-    Used only when `CANVAS_LMS_STORAGE_TYPE` is set to `local`.<br>
-    When empty, defaults to `tmp/files` which is Canvas LMS default path.<br>
-    Set this variable when you want to change from the default path.
+- `CANVAS_LMS_STORAGE_PATH_PREFIX`: (empty)
+  - Specifies the storage path prefix for Canvas LMS files.<br>
+    When empty, the Canvas LMS default path is used.<br>
+    Set this variable if you want to change the default path.
 - `CANVAS_LMS_ENCRYPTION_KEY`: 12345678901234567890
   - Encryption key used by Canvas LMS for securing sensitive data.<br>
     This should be a unique, long string (at least 20 characters or more).<br>
