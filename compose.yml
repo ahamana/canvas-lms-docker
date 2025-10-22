@@ -127,7 +127,7 @@ services:
 
   valkey:
     container_name: valkey
-    image: valkey/valkey:8
+    image: valkey/valkey:9
     restart: unless-stopped
     command: valkey-server --appendonly yes
     environment:
