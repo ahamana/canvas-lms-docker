@@ -122,7 +122,7 @@ jobs:
 
       - name: Download digests
         id: download-digests
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           path: ${{ runner.temp }}/digests
           pattern: digest-${{ env.DOCKER_METADATA_OUTPUT_VERSION }}*
