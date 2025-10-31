@@ -123,7 +123,7 @@ services:
     volumes:
       - type: volume
         source: db-data
-        target: /var/lib/postgresql/data
+        target: /var/lib/postgresql
 
   valkey:
     container_name: valkey
