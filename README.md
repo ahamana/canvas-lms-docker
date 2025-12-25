@@ -82,6 +82,10 @@ The environment is configured through the `.env` file which contains all the nec
   - Encryption key used by Canvas LMS for securing sensitive data.<br>
     This should be a unique, long string (at least 20 characters or more).<br>
     **Important**: Change this to a secure, random value in production environments.
+- `CANVAS_LMS_JWT_ENCRYPTION_KEYS`: (1234567890123456789abcdefghijklmnopqrstuvwxyz1234567890123456789)
+  - Secret key used for signing and verifying JWTs (JSON Web Tokens).<br>
+    Each key should be a secure, random 64-character secret.<br>
+    **Important**: Change these to secure, random values in production environments.
 - `POSTGRES_USER`: canvas
   - PostgreSQL database username.
 - `POSTGRES_PASSWORD`: canvas

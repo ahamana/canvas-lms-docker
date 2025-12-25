@@ -1,5 +1,6 @@
 default: &default
   encryption_key: <%= ENV.fetch('CANVAS_LMS_ENCRYPTION_KEY') %>
+  jwt_encryption_keys: <%= ENV.fetch('CANVAS_LMS_JWT_ENCRYPTION_KEYS') %>
 
 production: *default
 
