@@ -70,7 +70,6 @@ rm -rf \
     ui \
     ui-build
 rm \
-    .dive-ci \
     .dockerignore \
     .editorconfig \
     .git-blame-ignore-revs \
