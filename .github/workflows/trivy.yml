@@ -26,3 +26,17 @@ jobs:
         with:
           scan-ref: ${{ github.repository_owner }}/canvas-lms:ruby${{ matrix.ruby-version }}-${{ matrix.os }}
           scanners: vuln
+          output: trivy.txt
+
+      - name: Publish Trivy Output to Summary
+        if: hashFiles('trivy.txt')
+        run: |
+          {
+            echo '### Security Output'
+            echo '<details><summary>Click to expand</summary>'
+            echo ''
+            echo '```'
+            cat trivy.txt
+            echo '```'
+            echo '</details>'
+          } >> ${GITHUB_STEP_SUMMARY}
