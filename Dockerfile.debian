@@ -75,6 +75,7 @@ rm \
     .rspec \
     .sentryignore \
     .stylelintrc \
+    CODEOWNERS \
     config/*.yml.* \
     COPYRIGHT \
     docker-compose* \
