@@ -5,10 +5,11 @@ dotenv:
 
 tasks:
   default:
-    cmd: task -a
+    cmd: task -l
     silent: true
 
   setup: &setup
+    desc: Set up Canvas LMS
     env:
       COMPOSE_PROJECT_NAME: canvas-lms-{{.DISTRIBUTION}}
       DISTRIBUTION: "{{.DISTRIBUTION}}"
@@ -21,8 +22,9 @@ tasks:
             - alpine
             - debian
 
-  run:
+  start:
     <<: *setup
+    desc: Start Canvas LMS
     vars:
       STORAGE_PATH_PREFIX: '{{.CANVAS_LMS_STORAGE_PATH_PREFIX | default "tmp/files"}}'
     cmds:
@@ -31,12 +33,14 @@ tasks:
           docker compose exec -u root web
           sh -c '[ -d {{.STORAGE_PATH_PREFIX}} ] && chown -R canvas:canvas {{.STORAGE_PATH_PREFIX | splitList "/" | first}} || true'
 
-  shutdown:
+  stop:
     <<: *setup
+    desc: Stop Canvas LMS
     cmds:
       - cmd: docker compose down {{.CLI_ARGS}}
 
   logs:
     <<: *setup
+    desc: Display Docker Compose logs
     cmds:
       - cmd: docker compose logs -f {{.CLI_ARGS}}
