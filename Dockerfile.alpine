@@ -92,18 +92,18 @@ rm \
     log/* \
     yarn.lock
 rm \
-    .*.js \
-    .*.json \
-    .*.yml \
-    *.js \
-    *.json \
-    *.md \
-    *.ts
-find \
+    ./.*.js \
+    ./.*.json \
+    ./.*.yml \
+    ./*.js \
+    ./*.json \
+    ./*.md \
+    ./*.ts
+find . \
     -type d \
     -name .git \
     -exec rm -rf {} +
-find \
+find . \
     -type f \
     \( \
         -name .gitignore \
