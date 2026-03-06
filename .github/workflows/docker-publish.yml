@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Extract metadata
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: ruby${{ matrix.ruby-version }}-${{ matrix.os }}
@@ -115,7 +115,7 @@ jobs:
 
     steps:
       - name: Extract metadata
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: ${{ matrix.image-version }}
