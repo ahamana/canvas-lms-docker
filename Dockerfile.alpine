@@ -22,6 +22,7 @@ COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN apk add --no-cache \
     alpine-sdk \
     bash \
+    cargo \
     libidn-dev \
     libpq-dev \
     python3 \

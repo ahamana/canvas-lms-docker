@@ -23,6 +23,7 @@ COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN <<EOF
 apt-get update
 apt-get install -y --no-install-recommends \
+    cargo \
     libidn-dev \
     libxmlsec1-dev
 EOF
