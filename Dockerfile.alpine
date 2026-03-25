@@ -22,7 +22,6 @@ COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN apk add --no-cache \
     alpine-sdk \
     bash \
-    cargo \
     libidn-dev \
     libpq-dev \
     python3 \
@@ -46,9 +45,17 @@ WORKDIR ${CANVAS_HOME}
 RUN <<EOF
 corepack enable yarn
 
-# To address potential issues with `Error loading shared library ld-linux-aarch64.so.1`,
-# Bundler is configured to build native extensions for the local environment by setting `bundle config set force_ruby_platform true`.
-bundle config set force_ruby_platform true
+# Replace generic linux platforms with gnu/musl variants so Bundler can resolve
+# precompiled binaries (e.g. nokogiri, code_ownership).
+# TODO: Remove this workaround once Canvas LMS supports Ruby 4.x,
+#       which includes RubyGems 4.0.8+ with the CargoBuilder fix.
+#       Then add `cargo` to apk packages for gems with Rust extensions
+#       and restore `bundle config set force_ruby_platform true`.
+#       https://github.com/ruby/rubygems/pull/9373
+bundle plugin install bundler-multilock
+bundle lock \
+    --remove-platform aarch64-linux x86_64-linux \
+    --add-platform aarch64-linux-gnu aarch64-linux-musl x86_64-linux-gnu x86_64-linux-musl
 bundle install
 
 rails canvas:compile_assets
