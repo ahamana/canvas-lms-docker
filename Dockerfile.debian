@@ -23,6 +23,7 @@ COPY --link --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN <<EOF
 apt-get update
 apt-get install -y --no-install-recommends \
+    cargo \
     libidn-dev \
     libxmlsec1-dev
 EOF
@@ -41,16 +42,24 @@ WORKDIR ${CANVAS_HOME}
 RUN <<EOF
 corepack enable yarn
 
-# Replace generic linux platforms with gnu/musl variants so Bundler can resolve
-# precompiled binaries (e.g. nokogiri, code_ownership).
-# TODO: Remove this workaround once Canvas LMS supports Ruby 4.x,
-#       which includes RubyGems 4.0.8+ with the CargoBuilder fix.
-#       Then add `cargo` to apt packages for gems with Rust extensions.
-#       https://github.com/ruby/rubygems/pull/9373
-bundle plugin install bundler-multilock
-bundle lock \
-    --remove-platform aarch64-linux x86_64-linux \
-    --add-platform aarch64-linux-gnu aarch64-linux-musl x86_64-linux-gnu x86_64-linux-musl
+# RubyGems 3.6.x CargoBuilder uses Open3.capture2e (merging stderr into stdout)
+# and parses the combined output with SafeYAML. This breaks when cargo emits
+# warnings (e.g. `.cargo/config` deprecation) that pollute the JSON output.
+# Backport the fix: switch to JSON.parse and strip non-JSON stderr preamble.
+# https://github.com/rubyatscale/code_ownership/issues/151
+# https://github.com/ruby/rubygems/pull/9373
+# TODO: Remove this workaround once Canvas LMS upgrades to Ruby 4.x
+#       (RubyGems 4.0.8+ includes the CargoBuilder fix).
+ruby -e '
+  path = File.join(RbConfig::CONFIG["rubylibdir"], "rubygems", "ext", "cargo_builder.rb")
+  code = File.read(path)
+  code.gsub!(
+    "metadata = Gem::SafeYAML.safe_load(output)",
+    "require \"json\"\n    output = output.sub(/\\A[^{]*/m, \"\")\n    metadata = JSON.parse(output)"
+  )
+  File.write(path, code)
+'
+
 bundle install
 
 rails canvas:compile_assets
