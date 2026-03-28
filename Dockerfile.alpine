@@ -60,7 +60,9 @@ ruby -e '
   code = File.read(path)
   code.gsub!(
     "metadata = Gem::SafeYAML.safe_load(output)",
-    "require \"json\"\n    output = output.sub(/\\A[^{]*/m, \"\")\n    metadata = JSON.parse(output)"
+    "require \"json\"
+     output = output.sub(/\\A[^{]*/m, \"\")
+     metadata = JSON.parse(output)"
   )
   File.write(path, code)
 '
