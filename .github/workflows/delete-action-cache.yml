@@ -8,7 +8,7 @@ on:
 jobs:
   delete-cache:
     name: Delete Cache
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       actions: write
 

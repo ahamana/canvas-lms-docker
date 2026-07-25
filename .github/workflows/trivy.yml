@@ -10,7 +10,7 @@ on:
 jobs:
   scan:
     name: Scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     strategy:
       matrix:
         os:
