@@ -14,6 +14,6 @@ jobs:
 
     steps:
       - name: Delete action cache
-        uses: toshimaru/delete-action-cache@v1
+        uses: toshimaru/delete-action-cache@v1.0.1
         with:
           limit: 2147483647
