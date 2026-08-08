@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "eamodio.gitlens",
     "esbenp.prettier-vscode",
     "exiasr.hadolint",
     "github.vscode-github-actions",
