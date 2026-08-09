@@ -146,6 +146,6 @@ jobs:
 
       - name: Create manifest list and push
         working-directory: ${{ steps.download-digests.outputs.download-path }}
-        run: >
+        run: >-
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< ${DOCKER_METADATA_OUTPUT_JSON})
           $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
