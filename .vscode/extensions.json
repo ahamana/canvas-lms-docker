@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "bierner.markdown-preview-github-styles",
     "eamodio.gitlens",
     "esbenp.prettier-vscode",
     "exiasr.hadolint",
