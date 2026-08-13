@@ -16,29 +16,30 @@ This repository provides Docker configurations for running [Canvas LMS](https://
 
 ## Quick Start
 
-### Debian-based Set up
+### Debian-based
 
-```bash
-task setup DISTRIBUTION=debian
-```
+| Operation | Command                          |
+| --------- | -------------------------------- |
+| Set up    | `task setup DISTRIBUTION=debian` |
+| Start     | `task start DISTRIBUTION=debian` |
+| Stop      | `task stop DISTRIBUTION=debian`  |
 
-### Alpine-based Set up
+### Alpine-based
 
-```bash
-task setup DISTRIBUTION=alpine
-```
+| Operation | Command                          |
+| --------- | -------------------------------- |
+| Set up    | `task setup DISTRIBUTION=alpine` |
+| Start     | `task start DISTRIBUTION=alpine` |
+| Stop      | `task stop DISTRIBUTION=alpine`  |
 
-### Debian-based Start
+## Services
 
-```bash
-task start DISTRIBUTION=debian
-```
-
-### Alpine-based Start
-
-```bash
-task start DISTRIBUTION=alpine
-```
+| Service    | Role                 | Endpoint                |
+| ---------- | -------------------- | ----------------------- |
+| Canvas LMS | Canvas LMS interface | `http://localhost`      |
+| PostgreSQL | Database             | `localhost:5432`        |
+| Valkey     | Cache                | -                       |
+| Mailpit    | Email testing        | `http://localhost:8025` |
 
 ## Configuration
 
@@ -46,105 +47,36 @@ The environment is configured through the `.env` file which contains all the nec
 
 ### Main Settings
 
-- `EMAIL_DOMAIN`: example.com
-  - Specifies the domain part of email addresses.
-- `EMAIL_HOST_USER`: user
-  - Authentication username for the SMTP server.
-- `EMAIL_HOST_PASSWORD`: password
-  - Authentication password for the SMTP server.
-- `EMAIL_SENDER_ADDRESS`: canvas@${EMAIL_DOMAIN}
-  - Email address used as the sender for outgoing emails.
-- `EMAIL_SENDER_NAME`: Instructure Canvas
-  - Display name used for outgoing emails.
-- `CANVAS_LMS_DOMAIN`: localhost
-  - Specifies the domain name for the Canvas LMS application.<br>
-    Can be kept as "localhost" for local environments.
-- `CANVAS_LMS_ADMIN_EMAIL`: admin@${EMAIL_DOMAIN}
-  - Email address for the administrator account.<br>
-    Automatically generated from the email domain.
-- `CANVAS_LMS_ADMIN_PASSWORD`: password
-  - Password for the administrator account.
-- `CANVAS_LMS_ACCOUNT_NAME`: Canvas Admin
-  - Name for the main Canvas LMS account.
-- `CANVAS_LMS_STATS_COLLECTION`: opt_out
-  - Controls usage statistics collection.<br>
-    Options: `opt_in`, `opt_out`, or `anonymized`.
-- `CANVAS_LMS_STORAGE_TYPE`: local
-  - Specifies the storage type for Canvas LMS file storage.<br>
-    Options: `local` or `s3`.
-  - Set to `local` to store files on the local file system.
-  - Set to `s3` to store files in Amazon S3 or Amazon S3 compatible object storage.
-- `CANVAS_LMS_STORAGE_PATH_PREFIX`: (empty)
-  - Specifies the storage path prefix for Canvas LMS files.<br>
-    When empty, the Canvas LMS default path is used.<br>
-    Set this variable if you want to change the default path.
-- `CANVAS_LMS_ENCRYPTION_KEY`: 12345678901234567890
-  - Encryption key used by Canvas LMS for securing sensitive data.<br>
-    This should be a unique, long string (at least 20 characters or more).<br>
-    **Important**: Change this to a secure, random value in production environments.
-- `CANVAS_LMS_JWT_ENCRYPTION_KEYS`: (1234567890123456789abcdefghijklmnopqrstuvwxyz1234567890123456789)
-  - Secret key used for signing and verifying JWTs (JSON Web Tokens).<br>
-    Each key should be a secure, random 64-character secret.<br>
-    **Important**: Change these to secure, random values in production environments.
-- `POSTGRES_USER`: canvas
-  - PostgreSQL database username.
-- `POSTGRES_PASSWORD`: canvas
-  - PostgreSQL database password.<br>
-    Recommended to change to a strong password in production environments.
-- `POSTGRES_DB`: canvas
-  - PostgreSQL database name.
-- `TZ`: UTC
-  - Specifies the timezone.
+| Variable                         | Default                                                                                                                       | Description                                                                                                                                                                                                                        |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `EMAIL_DOMAIN`                   | `example.com`                                                                                                                 | Specifies the domain part of email addresses.                                                                                                                                                                                      |
+| `EMAIL_HOST_USER`                | `user`                                                                                                                        | Authentication username for the SMTP server.                                                                                                                                                                                       |
+| `EMAIL_HOST_PASSWORD`            | `password`                                                                                                                    | Authentication password for the SMTP server.                                                                                                                                                                                       |
+| `EMAIL_SENDER_ADDRESS`           | `canvas@${EMAIL_DOMAIN}`                                                                                                      | Email address used as the sender for outgoing emails.                                                                                                                                                                              |
+| `EMAIL_SENDER_NAME`              | `Instructure Canvas`                                                                                                          | Display name used for outgoing emails.                                                                                                                                                                                             |
+| `CANVAS_LMS_DOMAIN`              | `localhost`                                                                                                                   | Specifies the domain name for the Canvas LMS application.<br>Can be kept as "localhost" for local environments.                                                                                                                    |
+| `CANVAS_LMS_ADMIN_EMAIL`         | `admin@${EMAIL_DOMAIN}`                                                                                                       | Email address for the administrator account.<br>Automatically generated from the email domain.                                                                                                                                     |
+| `CANVAS_LMS_ADMIN_PASSWORD`      | `password`                                                                                                                    | Password for the administrator account.                                                                                                                                                                                            |
+| `CANVAS_LMS_ACCOUNT_NAME`        | `Canvas Admin`                                                                                                                | Name for the main Canvas LMS account.                                                                                                                                                                                              |
+| `CANVAS_LMS_STATS_COLLECTION`    | `opt_out`                                                                                                                     | Controls usage statistics collection.<br>Options: `opt_in`, `opt_out`, or `anonymized`.                                                                                                                                            |
+| `CANVAS_LMS_STORAGE_TYPE`        | `local`                                                                                                                       | Specifies the storage type for Canvas LMS file storage.<br>Options: `local` or `s3`.<br>Set to `local` to store files on the local file system.<br>Set to `s3` to store files in Amazon S3 or Amazon S3 compatible object storage. |
+| `CANVAS_LMS_STORAGE_PATH_PREFIX` | (empty)                                                                                                                       | Specifies the storage path prefix for Canvas LMS files.<br>When empty, the Canvas LMS default path is used.<br>Set this variable if you want to change the default path.                                                           |
+| `CANVAS_LMS_ENCRYPTION_KEY`      | `12345678901234567890`                                                                                                        | Encryption key used by Canvas LMS for securing sensitive data.<br>This should be a unique, long string (at least 20 characters or more).<br>**Important**: Change this to a secure, random value in production environments.       |
+| `CANVAS_LMS_JWT_ENCRYPTION_KEYS` | <code>1234567890123456&ZeroWidthSpace;789abcdefghijklm&ZeroWidthSpace;nopqrstuvwxyz123&ZeroWidthSpace;4567890123456789</code> | Secret key used for signing and verifying JWTs (JSON Web Tokens).<br>Each key should be a secure, random 64-character secret.<br>**Important**: Change these to secure, random values in production environments.                  |
+| `POSTGRES_USER`                  | `canvas`                                                                                                                      | PostgreSQL database username.                                                                                                                                                                                                      |
+| `POSTGRES_PASSWORD`              | `canvas`                                                                                                                      | PostgreSQL database password.<br>Recommended to change to a strong password in production environments.                                                                                                                            |
+| `POSTGRES_DB`                    | `canvas`                                                                                                                      | PostgreSQL database name.                                                                                                                                                                                                          |
+| `TZ`                             | `UTC`                                                                                                                         | Specifies the timezone.                                                                                                                                                                                                            |
 
 ### Amazon S3 Settings
 
-- `AWS_S3_BUCKET`
-  - Amazon S3 bucket name for storing Canvas LMS files.
-  - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
-- `AWS_ACCESS_KEY_ID`
-  - AWS access key ID for authentication.
-  - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
-- `AWS_SECRET_ACCESS_KEY`
-  - AWS secret access key for authentication.
-  - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
-- `AWS_REGION`
-  - AWS region where the Amazon S3 bucket is located.
-  - Required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.
-- `AWS_ENDPOINT`
-  - Custom endpoint for Amazon S3 compatible object storage (e.g. MinIO).
-  - Required when using Amazon S3 compatible object storage instead of Amazon S3.
-
-**Note**:<br>
-All AWS settings except `AWS_ENDPOINT` are required when `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.<br>
-The `AWS_ENDPOINT` setting is required only when using Amazon S3 compatible object storage services like MinIO.
-
-## Services
-
-The environment provides:
-
-- Database
-  - PostgreSQL
-- Cache
-  - Valkey
-- Email testing
-  - Mailpit
-    - Accessible at `http://localhost:8025`
-- Canvas LMS interface
-  - `http://localhost`
-
-## Stop
-
-### Debian-based Stop
-
-```bash
-task stop DISTRIBUTION=debian
-```
-
-### Alpine-based Stop
-
-```bash
-task stop DISTRIBUTION=alpine
-```
+| Variable                | Description                                                           | Required                                                                  |
+| ----------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `AWS_S3_BUCKET`         | Amazon S3 bucket name for storing Canvas LMS files.                   | When `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.                            |
+| `AWS_ACCESS_KEY_ID`     | AWS access key ID for authentication.                                 | When `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.                            |
+| `AWS_SECRET_ACCESS_KEY` | AWS secret access key for authentication.                             | When `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.                            |
+| `AWS_REGION`            | AWS region where the Amazon S3 bucket is located.                     | When `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.                            |
+| `AWS_ENDPOINT`          | Custom endpoint for Amazon S3 compatible object storage (e.g. MinIO). | Only when using Amazon S3 compatible object storage instead of Amazon S3. |
 
 ## License
 
