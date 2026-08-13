@@ -7,8 +7,6 @@ ARG CANVAS_HOME=/opt/canvas
 
 FROM node:${NODE_VERSION}-${DEBIAN_CODENAME}-slim AS node
 
-RUN corepack disable yarn
-
 FROM ruby:${RUBY_VERSION}-${DEBIAN_CODENAME} AS builder
 
 ARG GIT_BRANCH=prod
@@ -40,7 +38,7 @@ EOF
 WORKDIR ${CANVAS_HOME}
 
 RUN <<EOF
-corepack enable yarn
+npm install -g corepack
 
 bundle install
 

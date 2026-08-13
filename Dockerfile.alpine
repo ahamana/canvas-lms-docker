@@ -6,8 +6,6 @@ ARG CANVAS_HOME=/opt/canvas
 
 FROM node:${NODE_VERSION}-alpine AS node
 
-RUN corepack disable yarn
-
 FROM ruby:${RUBY_VERSION}-alpine AS builder
 
 ARG GIT_BRANCH=prod
@@ -48,7 +46,7 @@ EOF
 WORKDIR ${CANVAS_HOME}
 
 RUN <<EOF
-corepack enable yarn
+npm install -g corepack
 
 # canvas-lms parses its Gemfile through the vendored bundler-multilock plugin
 # and raises unless it is installed, so the plugin must be present before
