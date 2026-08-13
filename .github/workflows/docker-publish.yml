@@ -51,12 +51,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Extract metadata
-        uses: docker/metadata-action@v6.2.0
-        with:
-          images: ${{ env.REGISTRY_IMAGE }}
-          tags: ruby${{ matrix.ruby-version }}-${{ matrix.os }}
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4.2.0
 
@@ -67,8 +61,15 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v6.2.0
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+          tags: ruby${{ matrix.ruby-version }}-${{ matrix.os }}
+
       - name: Build and push by digest
-        id: build
+        id: build-and-push
         uses: docker/build-push-action@v7.3.0
         env:
           DOCKER_BUILD_RECORD_UPLOAD: false
@@ -76,22 +77,22 @@ jobs:
           file: Dockerfile.${{ matrix.os }}
           build-args: |
             RUBY_VERSION=${{ matrix.ruby-version }}
-          labels: ${{ env.DOCKER_METADATA_OUTPUT_LABELS }}
+          labels: ${{ steps.meta.outputs.labels }}
           platforms: ${{ matrix.platform }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
-          cache-from: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }}-${{ env.PLATFORM_PAIR }}
-          cache-to: type=gha,scope=${{ env.DOCKER_METADATA_OUTPUT_VERSION }}-${{ env.PLATFORM_PAIR }},mode=max
+          cache-from: type=gha,scope=${{ steps.meta.outputs.version }}-${{ env.PLATFORM_PAIR }}
+          cache-to: type=gha,scope=${{ steps.meta.outputs.version }}-${{ env.PLATFORM_PAIR }},mode=max
 
       - name: Export digest
         run: |
           mkdir -p ${{ runner.temp }}/digests
-          digest=${{ steps.build.outputs.digest }}
+          digest=${{ steps.build-and-push.outputs.digest }}
           touch ${{ runner.temp }}/digests/${digest#sha256:}
 
       - name: Upload digest
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: digest-${{ env.DOCKER_METADATA_OUTPUT_VERSION }}-${{ env.PLATFORM_PAIR }}
+          name: digest-${{ steps.meta.outputs.version }}-${{ env.PLATFORM_PAIR }}
           path: ${{ runner.temp }}/digests/*
           if-no-files-found: error
           retention-days: 1
@@ -100,9 +101,9 @@ jobs:
         uses: cloudposse/github-action-matrix-outputs-write@1.0.0
         with:
           matrix-step-name: ${{ github.job }}
-          matrix-key: ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+          matrix-key: ${{ steps.meta.outputs.version }}
           outputs: |
-            image-version: ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+            image-version: ${{ steps.meta.outputs.version }}
             platform: ${{ matrix.platform }}
 
   read-matrix:
@@ -128,7 +129,10 @@ jobs:
         image-version: ${{ fromJson(needs.read-matrix.outputs.result).image-version.* }}
 
     steps:
-      - name: Extract metadata
+      - *login-dockerhub
+
+      - name: Extract Docker metadata
+        id: meta
         uses: docker/metadata-action@v6.2.0
         with:
           images: ${{ env.REGISTRY_IMAGE }}
@@ -139,10 +143,8 @@ jobs:
         uses: actions/download-artifact@v8.0.1
         with:
           path: ${{ runner.temp }}/digests
-          pattern: digest-${{ env.DOCKER_METADATA_OUTPUT_VERSION }}*
+          pattern: digest-${{ steps.meta.outputs.version }}*
           merge-multiple: true
-
-      - *login-dockerhub
 
       - name: Create manifest list and push
         working-directory: ${{ steps.download-digests.outputs.download-path }}
