@@ -1,5 +1,7 @@
 # Canvas LMS Docker
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 This repository provides Docker configurations for running [Canvas LMS](https://github.com/instructure/canvas-lms) in a containerized environment.
 
 ## Features
@@ -77,7 +79,3 @@ The environment is configured through the `.env` file which contains all the nec
 | `AWS_SECRET_ACCESS_KEY` | AWS secret access key for authentication.                             | When `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.                            |
 | `AWS_REGION`            | AWS region where the Amazon S3 bucket is located.                     | When `CANVAS_LMS_STORAGE_TYPE` is set to `s3`.                            |
 | `AWS_ENDPOINT`          | Custom endpoint for Amazon S3 compatible object storage (e.g. MinIO). | Only when using Amazon S3 compatible object storage instead of Amazon S3. |
-
-## License
-
-See the [LICENSE](LICENSE) file for details.
