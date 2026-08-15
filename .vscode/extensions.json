@@ -6,6 +6,6 @@
     "exiasr.hadolint",
     "github.vscode-github-actions",
     "redhat.vscode-yaml",
-    "streetsidesoftware.code-spell-checker"
+    "tekumara.typos-vscode"
   ]
 }
