@@ -8,5 +8,6 @@ canvas
 compose.yml
 Dockerfile*
 LICENSE
+mise.toml
 README.md
 Taskfile.yml

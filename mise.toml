@@ -1,2 +1,3 @@
 [tools]
+hadolint = "latest"
 task = "latest"

@@ -6,6 +6,7 @@
     "exiasr.hadolint",
     "github.vscode-github-actions",
     "redhat.vscode-yaml",
-    "tekumara.typos-vscode"
+    "tekumara.typos-vscode",
+    "tombi-toml.tombi"
   ]
 }
