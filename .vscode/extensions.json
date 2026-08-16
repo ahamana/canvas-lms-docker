@@ -5,6 +5,7 @@
     "esbenp.prettier-vscode",
     "exiasr.hadolint",
     "github.vscode-github-actions",
+    "ms-vscode-remote.remote-containers",
     "redhat.vscode-yaml",
     "tekumara.typos-vscode",
     "tombi-toml.tombi"

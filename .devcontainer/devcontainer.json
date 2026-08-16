@@ -1,0 +1,30 @@
+{
+  "image": "jdxcode/mise",
+  "forwardPorts": [80, 5432, 8025],
+  "containerEnv": {
+    // Allow mise to use mise.toml without prompting for trust when
+    // the config contains an [env], [tasks.*], or template section.
+    "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false
+    },
+    "ghcr.io/devcontainers-extra/features/claude-code:2": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bierner.markdown-preview-github-styles",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "exiasr.hadolint",
+        "github.vscode-github-actions",
+        "redhat.vscode-yaml",
+        "tekumara.typos-vscode",
+        "tombi-toml.tombi"
+      ]
+    }
+  },
+  "onCreateCommand": "mise install"
+}
