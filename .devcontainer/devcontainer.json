@@ -6,12 +6,21 @@
     // the config contains an [env], [tasks.*], or template section.
     "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
   },
+  "remoteUser": "vscode",
   "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode"
+    },
     "ghcr.io/devcontainers/features/docker-in-docker:4": {
       "moby": false
     },
     "ghcr.io/devcontainers-extra/features/claude-code:2": {}
   },
+  // claude-code installs itself as the remote user, so the user must
+  // exist by then.
+  "overrideFeatureInstallOrder": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -23,8 +32,13 @@
         "redhat.vscode-yaml",
         "tekumara.typos-vscode",
         "tombi-toml.tombi"
-      ]
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
     }
   },
-  "onCreateCommand": "mise install"
+  // The mise directories baked into the image are owned by root, so
+  // change their ownership to the non-root user before installing anything.
+  "onCreateCommand": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise install"
 }
