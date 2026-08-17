@@ -1,3 +1,8 @@
 [tools]
 hadolint = "latest"
+lefthook = "latest"
 task = "latest"
+tombi = "latest"
+
+[hooks]
+postinstall = "lefthook install"
