@@ -1,12 +1,5 @@
 {
   "image": "jdxcode/mise",
-  "forwardPorts": [80, 5432, 8025],
-  "containerEnv": {
-    // Allow mise to use mise.toml without prompting for trust when
-    // the config contains an [env], [tasks.*], or template section.
-    "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
-  },
-  "remoteUser": "vscode",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode"
@@ -21,6 +14,16 @@
   "overrideFeatureInstallOrder": [
     "ghcr.io/devcontainers/features/common-utils"
   ],
+  "forwardPorts": [80, 5432, 8025],
+  "containerEnv": {
+    // Allow mise to use mise.toml without prompting for trust when
+    // the config contains an [env], [tasks.*], or template section.
+    "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
+  },
+  "remoteUser": "vscode",
+  // The mise directories baked into the image are owned by root, so
+  // change their ownership to the non-root user before installing anything.
+  "onCreateCommand": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise install",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -37,8 +40,5 @@
         "terminal.integrated.defaultProfile.linux": "zsh"
       }
     }
-  },
-  // The mise directories baked into the image are owned by root, so
-  // change their ownership to the non-root user before installing anything.
-  "onCreateCommand": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise install"
+  }
 }
