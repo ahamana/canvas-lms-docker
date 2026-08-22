@@ -2,10 +2,10 @@
   "recommendations": [
     "bierner.markdown-preview-github-styles",
     "eamodio.gitlens",
-    "esbenp.prettier-vscode",
     "exiasr.hadolint",
     "github.vscode-github-actions",
     "ms-vscode-remote.remote-containers",
+    "oxc.oxc-vscode",
     "redhat.vscode-yaml",
     "tekumara.typos-vscode",
     "tombi-toml.tombi"

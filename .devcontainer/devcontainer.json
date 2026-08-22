@@ -11,9 +11,7 @@
   },
   // claude-code installs itself as the remote user, so the user must
   // exist by then.
-  "overrideFeatureInstallOrder": [
-    "ghcr.io/devcontainers/features/common-utils"
-  ],
+  "overrideFeatureInstallOrder": ["ghcr.io/devcontainers/features/common-utils"],
   "forwardPorts": [80, 5432, 8025],
   "containerEnv": {
     // Allow mise to use mise.toml without prompting for trust when
@@ -29,9 +27,9 @@
       "extensions": [
         "bierner.markdown-preview-github-styles",
         "eamodio.gitlens",
-        "esbenp.prettier-vscode",
         "exiasr.hadolint",
         "github.vscode-github-actions",
+        "oxc.oxc-vscode",
         "redhat.vscode-yaml",
         "tekumara.typos-vscode",
         "tombi-toml.tombi"

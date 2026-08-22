@@ -1,6 +1,8 @@
 [tools]
 hadolint = "latest"
 lefthook = "latest"
+node = "lts"
+pnpm = "latest"
 task = "latest"
 tombi = "latest"
 

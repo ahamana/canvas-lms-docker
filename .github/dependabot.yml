@@ -7,6 +7,13 @@ updates:
       time: "09:00"
       timezone: Asia/Tokyo
 
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+      time: "09:00"
+      timezone: Asia/Tokyo
+
   - package-ecosystem: docker
     directory: /
     schedule:
