@@ -1,6 +1,8 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "oxc.oxc-vscode",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
   "[toml]": {
     "editor.defaultFormatter": "tombi-toml.tombi"
   }
