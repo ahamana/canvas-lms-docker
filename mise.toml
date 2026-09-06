@@ -4,6 +4,7 @@ hadolint = "latest"
 lefthook = "latest"
 node = "lts"
 pnpm = "latest"
+shellcheck = "latest"
 task = "latest"
 tombi = "latest"
 
