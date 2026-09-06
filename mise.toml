@@ -1,4 +1,5 @@
 [tools]
+actionlint = "latest"
 hadolint = "latest"
 lefthook = "latest"
 node = "lts"
