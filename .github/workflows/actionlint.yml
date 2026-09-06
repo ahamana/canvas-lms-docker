@@ -7,7 +7,7 @@ on:
       - .github/workflows/**
 
 jobs:
-  lint:
+  actionlint:
     name: actionlint
     runs-on: ubuntu-slim
     permissions:
@@ -19,5 +19,5 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: actionlint
+      - name: Run actionlint
         uses: raven-actions/actionlint@3d39aea434753780c3b3d4a1a31c854b4dbf49d7 # v2.2.0

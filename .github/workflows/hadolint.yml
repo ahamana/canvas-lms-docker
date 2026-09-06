@@ -1,11 +1,11 @@
-name: Lint Dockerfile
+name: Hadolint
 
 on:
   workflow_dispatch:
 
 jobs:
-  lint:
-    name: Lint
+  hadolint:
+    name: Hadolint
     runs-on: ubuntu-slim
     permissions:
       contents: read
@@ -21,7 +21,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Lint Dockerfile
+      - name: Run Hadolint
         uses: hadolint/hadolint-action@06be81baf89a55ffd0e24b8f04a4185738dd3387 # v3.5.0
         with:
           dockerfile: Dockerfile.${{ matrix.os }}
