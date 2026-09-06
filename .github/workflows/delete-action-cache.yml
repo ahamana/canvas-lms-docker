@@ -3,7 +3,8 @@ name: Delete Action Cache
 on:
   workflow_dispatch:
   pull_request_target:
-    types: closed
+    types:
+      - closed
 
 jobs:
   delete-cache:
