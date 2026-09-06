@@ -44,7 +44,7 @@ jobs:
       - name: Prepare
         run: |
           platform=${{ matrix.platform }}
-          echo "PLATFORM_PAIR=${platform//\//-}" >> ${GITHUB_ENV}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> "${GITHUB_ENV}"
 
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -150,5 +150,5 @@ jobs:
         working-directory: ${{ steps.download-digests.outputs.download-path }}
         run: >-
           docker buildx imagetools create
-          $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< ${DOCKER_METADATA_OUTPUT_JSON})
+          $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "${DOCKER_METADATA_OUTPUT_JSON}")
           $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
