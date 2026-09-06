@@ -1,0 +1,18 @@
+name: Auto Author Assign
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  assign-author:
+    name: Assign Author
+    runs-on: ubuntu-slim
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Assign author
+        uses: toshimaru/auto-author-assign@3e19bfc990cb1cf0589dce95e9f75289bb1e22de # v3.0.3
