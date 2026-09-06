@@ -11,6 +11,8 @@ jobs:
   scan:
     name: Scan
     runs-on: ubuntu-slim
+    permissions:
+      contents: read
     strategy:
       matrix:
         os:
