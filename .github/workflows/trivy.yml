@@ -5,7 +5,8 @@ on:
   workflow_run:
     workflows:
       - Docker
-    types: completed
+    types:
+      - completed
 
 jobs:
   scan:
