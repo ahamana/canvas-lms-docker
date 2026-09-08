@@ -82,10 +82,11 @@ jobs:
           cache-to: type=gha,scope=${{ steps.meta.outputs.version }}-${{ env.PLATFORM_PAIR }},mode=max
 
       - name: Export digest
+        env:
+          DIGEST: ${{ steps.build-and-push.outputs.digest }}
         run: |
           mkdir -p ${{ runner.temp }}/digests
-          digest=${{ steps.build-and-push.outputs.digest }}
-          touch ${{ runner.temp }}/digests/${digest#sha256:}
+          touch "${{ runner.temp }}/digests/${DIGEST#sha256:}"
 
       - name: Upload digest
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -154,4 +155,4 @@ jobs:
           # shellcheck disable=SC2046
           docker buildx imagetools create \
             $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "${DOCKER_METADATA_OUTPUT_JSON}") \
-            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+            $(printf "${REGISTRY_IMAGE}@sha256:%s " *)
