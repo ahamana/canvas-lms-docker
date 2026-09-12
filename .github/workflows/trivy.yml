@@ -2,7 +2,7 @@ name: Trivy
 
 on:
   workflow_dispatch:
-  workflow_run:
+  workflow_run: # zizmor: ignore[dangerous-triggers]
     workflows:
       - Docker
     types:

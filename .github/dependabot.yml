@@ -6,6 +6,8 @@ updates:
       interval: daily
       time: "09:00"
       timezone: Asia/Tokyo
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: npm
     directory: /
@@ -13,6 +15,8 @@ updates:
       interval: daily
       time: "09:00"
       timezone: Asia/Tokyo
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: docker
     directory: /
@@ -20,6 +24,8 @@ updates:
       interval: daily
       time: "09:00"
       timezone: Asia/Tokyo
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: docker-compose
     directory: /
@@ -27,6 +33,8 @@ updates:
       interval: daily
       time: "09:00"
       timezone: Asia/Tokyo
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: devcontainers
     directory: /
@@ -34,3 +42,5 @@ updates:
       interval: daily
       time: "09:00"
       timezone: Asia/Tokyo
+    cooldown:
+      default-days: 7
