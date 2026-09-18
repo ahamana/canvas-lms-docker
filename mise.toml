@@ -2,10 +2,13 @@
 actionlint = "latest"
 ghalint = "latest"
 hadolint = "latest"
-lefthook = { version = "latest", postinstall = "lefthook install" }
+lefthook = "latest"
 node = "lts"
 pnpm = "latest"
 shellcheck = "latest"
 task = "latest"
 tombi = "latest"
 zizmor = "latest"
+
+[hooks]
+postinstall = "lefthook install"
