@@ -5,11 +5,10 @@ on:
   push:
     branches:
       - main
-    paths:
+    paths: &paths
       - .github/workflows/**
   pull_request:
-    paths:
-      - .github/workflows/**
+    paths: *paths
 
 jobs:
   actionlint:
