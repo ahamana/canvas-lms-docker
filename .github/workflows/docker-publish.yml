@@ -15,10 +15,10 @@ jobs:
       contents: read
     strategy:
       matrix:
-        os:
+        os: &matrix-os
           - alpine
           - debian
-        ruby-version:
+        ruby-version: &matrix-ruby-version
           - "3.4"
           - "4.0"
         platform:
@@ -60,7 +60,8 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Extract Docker metadata
+      - &extract-docker-metadata
+        name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
         with:
@@ -92,36 +93,10 @@ jobs:
       - name: Upload digest
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: digest-${{ steps.meta.outputs.version }}-${{ env.PLATFORM_PAIR }}
+          name: digests-${{ steps.meta.outputs.version }}-${{ env.PLATFORM_PAIR }}
           path: ${{ runner.temp }}/digests/*
           if-no-files-found: error
           retention-days: 1
-
-      - name: Write matrix outputs
-        uses: cloudposse/github-action-matrix-outputs-write@ed06cf3a6bf23b8dce36d1cf0d63123885bb8375 # 1.0.0
-        with:
-          matrix-step-name: ${{ github.job }}
-          matrix-key: ${{ steps.meta.outputs.version }}
-          outputs: |
-            image-version: ${{ steps.meta.outputs.version }}
-            platform: ${{ matrix.platform }}
-
-  read-matrix:
-    name: Read Matrix
-    runs-on: ubuntu-slim
-    timeout-minutes: 30
-    permissions:
-      contents: read
-    needs: build
-    outputs:
-      result: ${{ steps.read-matrix.outputs.result }}
-
-    steps:
-      - name: Read matrix outputs
-        id: read-matrix
-        uses: cloudposse/github-action-matrix-outputs-read@33cac12fa9282a7230a418d859b93fdbc4f27b5a # 1.0.0
-        with:
-          matrix-step-name: build
 
   merge:
     name: Merge
@@ -129,27 +104,23 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
-    needs: read-matrix
+    needs: build
     strategy:
       matrix:
-        image-version: ${{ fromJson(needs.read-matrix.outputs.result).image-version.* }}
+        os: *matrix-os
+        ruby-version: *matrix-ruby-version
 
     steps:
       - *login-dockerhub
 
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
-        with:
-          images: ${{ env.REGISTRY_IMAGE }}
-          tags: ${{ matrix.image-version }}
+      - *extract-docker-metadata
 
       - name: Download digests
         id: download-digests
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           path: ${{ runner.temp }}/digests
-          pattern: digest-${{ steps.meta.outputs.version }}*
+          pattern: digests-${{ steps.meta.outputs.version }}*
           merge-multiple: true
 
       - name: Create manifest list and push
