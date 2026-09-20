@@ -53,14 +53,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
 
-      - &login-dockerhub
+      - &docker-login
         name: Login to Docker Hub
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - &extract-docker-metadata
+      - &docker-metadata
         name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
@@ -111,9 +111,9 @@ jobs:
         ruby-version: *matrix-ruby-version
 
     steps:
-      - *login-dockerhub
+      - *docker-login
 
-      - *extract-docker-metadata
+      - *docker-metadata
 
       - name: Download digests
         id: download-digests
