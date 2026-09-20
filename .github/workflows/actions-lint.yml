@@ -44,6 +44,8 @@ jobs:
           install_args: ghalint
 
       - name: Run ghalint
+        env:
+          GHALINT_LOG_COLOR: always
         run: ghalint run
 
   zizmor:
