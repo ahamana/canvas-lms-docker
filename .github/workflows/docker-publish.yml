@@ -15,10 +15,10 @@ jobs:
       contents: read
     strategy:
       matrix:
-        os: &matrix-os
+        os: &os
           - alpine
           - debian
-        ruby-version: &matrix-ruby-version
+        ruby-version: &ruby-version
           - "3.4"
           - "4.0"
         platform:
@@ -107,8 +107,8 @@ jobs:
     needs: build
     strategy:
       matrix:
-        os: *matrix-os
-        ruby-version: *matrix-ruby-version
+        os: *os
+        ruby-version: *ruby-version
 
     steps:
       - *docker-login
