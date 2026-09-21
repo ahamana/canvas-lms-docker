@@ -5,6 +5,7 @@
 .github
 .gitignore
 .lefthookrc
+.markdownlint-cli2.jsonc
 .oxfmtrc.json
 .vscode
 canvas
