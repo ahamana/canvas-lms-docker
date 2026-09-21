@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "lint:markdown": "markdownlint-cli2"
+  },
   "devDependencies": {
+    "markdownlint-cli2": "^0.23.2",
     "oxfmt": "^0.67.0"
   }
 }

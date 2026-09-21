@@ -25,6 +25,7 @@
     "vscode": {
       "extensions": [
         "bierner.markdown-preview-github-styles",
+        "davidanson.vscode-markdownlint",
         "eamodio.gitlens",
         "exiasr.hadolint",
         "github.vscode-github-actions",
