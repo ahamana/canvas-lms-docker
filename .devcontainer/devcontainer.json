@@ -23,6 +23,7 @@
   // The mise directories baked into the image are owned by root, so
   // change their ownership to the non-root user before installing anything.
   "onCreateCommand": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise bootstrap -y",
+  "postCreateCommand": "pnpm ci",
   "customizations": {
     "vscode": {
       "extensions": [
