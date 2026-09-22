@@ -24,6 +24,7 @@
   // change their ownership to the non-root user before installing anything.
   "onCreateCommand": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise bootstrap -y",
   "postCreateCommand": "pnpm ci",
+  "waitFor": "postCreateCommand",
   "customizations": {
     "vscode": {
       "extensions": [
