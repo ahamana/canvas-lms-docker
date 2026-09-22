@@ -1,3 +1,7 @@
+[bootstrap.mise_shell_activate]
+bashrc = "activate"
+zshrc = "activate"
+
 [tools]
 actionlint = "latest"
 ghalint = "latest"

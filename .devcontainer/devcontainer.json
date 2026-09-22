@@ -1,7 +1,9 @@
 {
-  "image": "jdxcode/mise",
+  "image": "jdxcode/mise:debian",
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
+    },
     "ghcr.io/devcontainers/features/docker-in-docker:4": {
       "moby": false
     },
@@ -20,7 +22,7 @@
   "remoteUser": "vscode",
   // The mise directories baked into the image are owned by root, so
   // change their ownership to the non-root user before installing anything.
-  "onCreateCommand": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise install",
+  "onCreateCommand": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise bootstrap -y",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -33,10 +35,7 @@
         "redhat.vscode-yaml",
         "tekumara.typos-vscode",
         "tombi-toml.tombi"
-      ],
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "zsh"
-      }
+      ]
     }
   }
 }
