@@ -4,6 +4,6 @@
   },
   "devDependencies": {
     "markdownlint-cli2": "^0.23.2",
-    "oxfmt": "^0.67.0"
+    "oxfmt": "^0.68.0"
   }
 }
