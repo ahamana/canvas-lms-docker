@@ -2,6 +2,13 @@ name: Hadolint
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths: &paths
+      - Dockerfile.*
+  pull_request:
+    paths: *paths
 
 jobs:
   hadolint:
