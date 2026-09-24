@@ -15,10 +15,23 @@
   "overrideFeatureInstallOrder": ["ghcr.io/devcontainers/features/common-utils"],
   "forwardPorts": [80, 5432, 8025],
   "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
     // Allow mise to use mise.toml without prompting for trust when
     // the config contains an [env], [tasks.*], or template section.
     "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
   },
+  "mounts": [
+    {
+      "type": "bind",
+      "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.config/gh",
+      "target": "/home/vscode/.config/gh"
+    },
+    {
+      "type": "volume",
+      "source": "claude-code-config-${devcontainerId}",
+      "target": "/home/vscode/.claude"
+    }
+  ],
   "remoteUser": "vscode",
   // The mise directories baked into the image are owned by root, so
   // change their ownership to the non-root user before installing anything.
