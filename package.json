@@ -1,8 +1,6 @@
 {
-  "scripts": {
-    "lint:markdown": "markdownlint-cli2"
-  },
   "devDependencies": {
+    "lefthook": "^2.1.14",
     "markdownlint-cli2": "^0.23.2",
     "oxfmt": "^0.68.0"
   }

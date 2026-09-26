@@ -51,7 +51,7 @@ pre-commit:
 
     - name: markdownlint
       glob: "*.md"
-      run: pnpm run lint:markdown --fix --no-globs {staged_files}
+      run: pnx markdownlint-cli2 --fix --no-globs {staged_files}
       stage_fixed: true
 
     - name: tombi
