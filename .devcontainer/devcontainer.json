@@ -6,41 +6,41 @@
     },
     "ghcr.io/devcontainers/features/docker-in-docker:4": {
       "moby": false
-    },
-    "ghcr.io/devcontainers-extra/features/claude-code:2": {}
+    }
   },
-  // claude-code installs itself as the remote user, so the user must
-  // exist by then.
-  "overrideFeatureInstallOrder": ["ghcr.io/devcontainers/features/common-utils"],
   "forwardPorts": [80, 5432, 8025],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
-    "MISE_DISABLE_TOOLS": "claude",
-    // Allow mise to use mise.toml without prompting for trust when
-    // the config contains an [env], [tasks.*], or template section.
+    // Allow mise to use mise.toml without prompting for trust when the config
+    // contains an [env], [tasks.*], or template section.
     "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
   },
   "mounts": [
     {
-      "type": "bind",
-      "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.config/gh",
-      "target": "/home/vscode/.config/gh"
-    },
-    {
       "type": "volume",
       "source": "claude-code-config-${devcontainerId}",
       "target": "/home/vscode/.claude"
+    },
+    {
+      "type": "volume",
+      "source": "github-cli-config",
+      "target": "/home/vscode/.config/gh"
     }
   ],
   "remoteUser": "vscode",
-  // The mise directories baked into the image are owned by root, so
-  // change their ownership to the non-root user before installing anything.
-  "onCreateCommand": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise bootstrap -y",
+  "onCreateCommand": {
+    "claude-code": "sudo chown $(id -u):$(id -g) ${CLAUDE_CONFIG_DIR}",
+    "github-cli": "sudo chown $(id -u):$(id -g) ${HOME}/.config/gh",
+    // The mise directories baked into the image are owned by root, so change
+    // their ownership to the non-root user before installing anything.
+    "mise": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise bootstrap -y"
+  },
   "postCreateCommand": "pnpm ci",
   "waitFor": "postCreateCommand",
   "customizations": {
     "vscode": {
       "extensions": [
+        "anthropic.claude-code",
         "bierner.markdown-preview-github-styles",
         "davidanson.vscode-markdownlint",
         "eamodio.gitlens",
