@@ -14,9 +14,10 @@ ARG CANVAS_HOME
 ENV RAILS_ENV=production
 ENV COMPILE_ASSETS_BRAND_CONFIGS=0
 ENV SASS_STYLE=compressed
-# Operate on the single (main) lockfile so canvas-lms's vendored bundler-multilock
-# plugin does not re-resolve the per-gem secondary lockfiles, which fails on gems
-# (e.g. nokogiri) that dropped the legacy `x86_64-linux` platform.
+# Operate on the single (main) lockfile so canvas-lms's vendored
+# bundler-multilock plugin does not re-resolve the per-gem secondary lockfiles,
+# which fails on gems (e.g. nokogiri) that dropped the legacy `x86_64-linux`
+# platform.
 ENV BUNDLE_LOCKFILE=Gemfile.lock
 
 COPY --link --from=node /usr/local/bin /usr/local/bin
@@ -52,13 +53,13 @@ npm install -g corepack
 # and raises unless it is installed, so the plugin must be present before
 # `bundle lock` can read the Gemfile.
 bundle plugin install bundler-multilock
-# canvas-lms's Gemfile.lock lists `x86_64-linux`/`aarch64-linux` (glibc)
-# but no musl platform, so on Alpine (musl) Bundler would install those glibc gems,
+# canvas-lms's Gemfile.lock lists `x86_64-linux`/`aarch64-linux` (glibc) but no
+# musl platform, so on Alpine (musl) Bundler would install those glibc gems,
 # whose native extensions cannot be dlopen'd on musl (`Error loading shared
 # library ld-linux-x86-64.so.2`).
-# Add the musl platforms so Bundler picks musl-native precompiled gems
-# where available (notably code_ownership's Rust extension, which this image
-# does not build from source) and builds the remaining gems from source.
+# Add the musl platforms so Bundler picks musl-native precompiled gems where
+# available (notably code_ownership's Rust extension, which this image does not
+# build from source) and builds the remaining gems from source.
 bundle lock --add-platform x86_64-linux-musl aarch64-linux-musl
 bundle install
 
@@ -135,10 +136,10 @@ ARG RAILS_PORT=3000
 
 ENV BINDING=0.0.0.0
 ENV PORT=${RAILS_PORT}
-# Operate on the single (main) lockfile at runtime too; otherwise bundler-multilock
-# resolves every lockfile and `rails server` fails to boot on the test-group git
-# gem crystalball (not installed in production) with `crystalball.git is not yet
-# checked out`.
+# Operate on the single (main) lockfile at runtime too; otherwise
+# bundler-multilock resolves every lockfile and `rails server` fails to boot on
+# the test-group git gem crystalball (not installed in production) with
+# `crystalball.git is not yet checked out`.
 ENV BUNDLE_LOCKFILE=Gemfile.lock
 
 RUN <<EOF
