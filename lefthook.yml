@@ -46,12 +46,12 @@ rc: ./.lefthookrc
 pre-commit:
   jobs:
     - name: oxfmt
-      run: pnx oxfmt --no-error-on-unmatched-pattern {staged_files}
+      run: pnpm exec oxfmt --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
 
     - name: markdownlint
       glob: "*.md"
-      run: pnx markdownlint-cli2 --fix --no-globs {staged_files}
+      run: pnpm exec markdownlint-cli2 --fix --no-globs {staged_files}
       stage_fixed: true
 
     - name: tombi
