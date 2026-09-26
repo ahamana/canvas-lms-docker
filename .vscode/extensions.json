@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "anthropic.claude-code",
     "bierner.markdown-preview-github-styles",
     "davidanson.vscode-markdownlint",
     "eamodio.gitlens",

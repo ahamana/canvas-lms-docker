@@ -7,6 +7,7 @@ zshrc = true
 
 [tools]
 actionlint = "latest"
+claude = "latest"
 ghalint = "latest"
 github-cli = "latest"
 hadolint = "latest"

@@ -15,6 +15,7 @@
   "forwardPorts": [80, 5432, 8025],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
+    "MISE_DISABLE_TOOLS": "claude",
     // Allow mise to use mise.toml without prompting for trust when
     // the config contains an [env], [tasks.*], or template section.
     "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
