@@ -8,6 +8,7 @@ zshrc = true
 [tools]
 actionlint = "latest"
 ghalint = "latest"
+github-cli = "latest"
 hadolint = "latest"
 node = "lts"
 pnpm = "latest"
