@@ -17,6 +17,10 @@ updates:
       timezone: Asia/Tokyo
     cooldown:
       default-days: 7
+    groups:
+      commitlint:
+        patterns:
+          - "@commitlint/*"
 
   - package-ecosystem: docker
     directory: /

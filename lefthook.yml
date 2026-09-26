@@ -58,3 +58,8 @@ pre-commit:
       glob: "*.toml"
       run: tombi format {staged_files}
       stage_fixed: true
+
+commit-msg:
+  jobs:
+    - name: commitlint
+      run: pnpm exec commitlint --edit {1}
