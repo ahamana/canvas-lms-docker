@@ -12,7 +12,8 @@
   },
   "forwardPorts": [80, 5432, 8025],
   "containerEnv": {
-    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
+    "GH_CONFIG_DIR": "/home/vscode/.config/gh"
   },
   "mounts": [
     {
@@ -29,7 +30,7 @@
   "remoteUser": "vscode",
   "onCreateCommand": {
     "claude-code": "sudo chown $(id -u):$(id -g) ${CLAUDE_CONFIG_DIR}",
-    "github-cli": "sudo chown $(id -u):$(id -g) ${HOME}/.config/gh",
+    "github-cli": "sudo chown $(id -u):$(id -g) ${GH_CONFIG_DIR}",
     // The mise directories baked into the image are owned by root, so change
     // their ownership to the non-root user before installing anything.
     // Use `mise trust` instead of `MISE_TRUSTED_CONFIG_PATHS`, because tools
