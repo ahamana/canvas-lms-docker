@@ -1,9 +1,7 @@
 {
   "image": "jdxcode/mise:debian",
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "configureZshAsDefaultShell": true
-    },
+    "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/devcontainers/features/docker-in-docker:4": {
       "moby": false
     },
@@ -14,10 +12,7 @@
   },
   "forwardPorts": [80, 5432, 8025],
   "containerEnv": {
-    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
-    // Allow mise to use mise.toml without prompting for trust when the config
-    // contains an [env], [tasks.*], or template section.
-    "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
   },
   "mounts": [
     {
@@ -37,7 +32,10 @@
     "github-cli": "sudo chown $(id -u):$(id -g) ${HOME}/.config/gh",
     // The mise directories baked into the image are owned by root, so change
     // their ownership to the non-root user before installing anything.
-    "mise": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise bootstrap -y"
+    // Use `mise trust` instead of `MISE_TRUSTED_CONFIG_PATHS`, because tools
+    // such as the Oxc extension start processes without the container's
+    // environment variables.
+    "mise": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise trust && mise bootstrap -y"
   },
   "postCreateCommand": "pnpm ci",
   "waitFor": "postCreateCommand",
@@ -54,7 +52,10 @@
         "redhat.vscode-yaml",
         "tekumara.typos-vscode",
         "tombi-toml.tombi"
-      ]
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
     }
   }
 }
