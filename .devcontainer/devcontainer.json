@@ -25,6 +25,11 @@
       "type": "volume",
       "source": "github-cli-config",
       "target": "/home/vscode/.config/gh"
+    },
+    {
+      "type": "volume",
+      "source": "node-modules-${devcontainerId}",
+      "target": "${containerWorkspaceFolder}/node_modules"
     }
   ],
   "remoteUser": "vscode",
@@ -36,7 +41,8 @@
     // Use `mise trust` instead of `MISE_TRUSTED_CONFIG_PATHS`, because tools
     // such as the Oxc extension start processes without the container's
     // environment variables.
-    "mise": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise trust && mise bootstrap -y"
+    "mise": "sudo chown -R $(id -u):$(id -g) ${MISE_DATA_DIR} && mise trust && mise bootstrap -y",
+    "node": "sudo chown $(id -u):$(id -g) ${containerWorkspaceFolder}/node_modules"
   },
   "postCreateCommand": "pnpm ci",
   "waitFor": "postCreateCommand",
