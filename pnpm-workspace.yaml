@@ -1,6 +1,6 @@
 update:
   githubActions: true
-minimumReleaseAge: 10080
+minimumReleaseAge: 4320
 trustPolicy: no-downgrade
 autoDedupe: true
 allowBuilds:
