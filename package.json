@@ -4,6 +4,6 @@
     "@commitlint/config-conventional": "^21.2.3",
     "lefthook": "^2.1.16",
     "markdownlint-cli2": "^0.23.3",
-    "oxfmt": "^0.71.0"
+    "oxfmt": "^0.72.0"
   }
 }
