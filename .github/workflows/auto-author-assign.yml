@@ -14,7 +14,7 @@ jobs:
   assign-author:
     name: Assign Author
     runs-on: ubuntu-slim
-    timeout-minutes: 30
+    timeout-minutes: 15
     permissions:
       pull-requests: write
 

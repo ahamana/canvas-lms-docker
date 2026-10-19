@@ -14,7 +14,7 @@ jobs:
   delete-cache:
     name: Delete Cache
     runs-on: ubuntu-slim
-    timeout-minutes: 30
+    timeout-minutes: 15
     permissions:
       actions: write
 
