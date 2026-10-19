@@ -3,6 +3,8 @@ name: Docker
 on:
   workflow_dispatch:
 
+permissions: {}
+
 env:
   REGISTRY_IMAGE: ${{ github.repository_owner }}/canvas-lms
 
