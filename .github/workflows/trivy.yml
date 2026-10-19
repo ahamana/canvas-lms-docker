@@ -39,6 +39,7 @@ jobs:
 
       - name: Publish Trivy Output to Summary
         if: hashFiles('trivy.txt')
+        shell: bash
         run: |
           {
             echo '### Security Output'
