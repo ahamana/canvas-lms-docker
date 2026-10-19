@@ -6,11 +6,11 @@ bashrc = true
 zshrc = true
 
 [tools]
-actionlint = "latest"
 claude = "latest"
 ghalint = "latest"
 github-cli = "latest"
 hadolint = "latest"
+jactionlint = "latest"
 node = "lts"
 pnpm = "latest"
 shellcheck = "latest"
