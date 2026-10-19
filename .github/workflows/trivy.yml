@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Run Trivy vulnerability scanner
-        if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-ref: ${{ github.repository_owner }}/canvas-lms:ruby${{ matrix.ruby-version }}-${{ matrix.os }}
@@ -38,7 +38,7 @@ jobs:
           output: trivy.txt
 
       - name: Publish Trivy Output to Summary
-        if: hashFiles('trivy.txt')
+        if: ${{ hashFiles('trivy.txt') }}
         shell: bash
         run: |
           {
