@@ -17,6 +17,7 @@ rules:
   dependabot-cooldown:
     days: 3
   mutable-runner-label: off
+  undocumented-permissions: off
 #  unpinned-uses: error
 #  require-shell: off
 #  max-run-lines:
