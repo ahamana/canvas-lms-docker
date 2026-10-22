@@ -70,10 +70,9 @@ paths:
 #    expires: "2027-06-30"
 
 # Controls what permissions are assumed for a caller workflow that declares no
-# "permissions:" block at all when checking reusable workflow calls. Unset, only
-# "id-token", which no default token has, is reported. Set to "restricted" to
-# assume GitHub's restricted default token. Set to "permissive" to assume write
-# on every scope except "id-token" (which always requires an explicit opt-in).
+# "permissions:" block at all when checking reusable workflow calls. Unset, the
+# permissive default is assumed. Set to "restricted" to assume GitHub's
+# restricted default token. Set to "permissive" to assume write on every scope.
 #assume-default-permissions: restricted
 
 # What to do with a file whose first comment says that a tool wrote it ("DO NOT
