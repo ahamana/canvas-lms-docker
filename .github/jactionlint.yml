@@ -4,7 +4,7 @@
 # "default" adds the security posture and policy rules worth failing a build on.
 # "pedantic" adds the noisy and opinionated rules. The --profile flag overrides
 # this. See https://jactionlint.jdx.dev/rules for all rule IDs.
-#profile: default
+profile: pedantic
 
 # Turn on the checks which query the GitHub API (impostor commits, known
 # vulnerable actions, archived repositories, ...). Same as the --online flag.
@@ -17,6 +17,7 @@ rules:
   dependabot-cooldown:
     days: 3
   mutable-runner-label: off
+  secrets-outside-env: off
   undocumented-permissions: off
 #  unpinned-uses: error
 #  require-shell: off
