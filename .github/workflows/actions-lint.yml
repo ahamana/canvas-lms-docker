@@ -32,7 +32,7 @@ jobs:
           persist-credentials: false
 
       - name: Run jactionlint
-        uses: jdx/jactionlint@1027f0a131ab98bc7e191d995bfa15dbed5bbf8f # v2.2.0
+        uses: jdx/jactionlint@a65ab044e916760429068fe5794b8306abdfcbb9 # v2.3.0
 
   ghalint:
     name: ghalint
