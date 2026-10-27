@@ -69,5 +69,6 @@ jobs:
       - name: Run zizmor
         uses: zizmorcore/zizmor-action@53290badfa369cb0bf7ad16342cb62c2fa47ac7b # v0.8.0
         with:
+          persona: auditor
           advanced-security: false
           annotations: true
