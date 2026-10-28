@@ -3,5 +3,5 @@
   "sortPackageJson": {
     "sortScripts": true
   },
-  "ignorePatterns": ["*.toml", "pnpm-lock.yaml"]
+  "ignorePatterns": ["*.toml"]
 }
