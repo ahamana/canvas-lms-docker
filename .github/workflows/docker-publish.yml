@@ -78,7 +78,7 @@ jobs:
           tags: ruby${{ matrix.ruby-version }}-${{ matrix.os }}
 
       - name: Build and push by digest # jactionlint ignore=cache-poisoning
-        id: build-and-push
+        id: build-push
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
         env:
           DOCKER_BUILD_RECORD_UPLOAD: false
@@ -95,7 +95,7 @@ jobs:
       - name: Export digest
         shell: bash
         env:
-          DIGEST: ${{ steps.build-and-push.outputs.digest }}
+          DIGEST: ${{ steps.build-push.outputs.digest }}
         run: |
           mkdir -p "${RUNNER_TEMP}/digests"
           touch "${RUNNER_TEMP}/digests/${DIGEST#sha256:}"
