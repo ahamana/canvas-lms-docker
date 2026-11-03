@@ -8,7 +8,7 @@ zshrc = true
 [tools]
 claude = "latest"
 ghalint = "latest"
-github-cli = { version = "latest", postinstall = "gh extension install --force github/gh-actions-lock" }
+github-cli = { version = "latest", postinstall = "gh extension install github/gh-actions-lock --force" }
 hadolint = "latest"
 jactionlint = "latest"
 node = "lts"
