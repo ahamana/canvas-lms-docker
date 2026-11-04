@@ -1,5 +1,3 @@
-update:
-  githubActions: true
 minimumReleaseAge: 4320
 trustPolicy: no-downgrade
 autoDedupe: true
