@@ -59,6 +59,10 @@ pre-commit:
       run: tombi format {staged_files}
       stage_fixed: true
 
+    - name: gh-actions-lock
+      glob: .github/workflows/*
+      run: gh actions-lock --verify-local
+
 commit-msg:
   jobs:
     - name: commitlint
