@@ -1,4 +1,4 @@
-name: Delete Action Cache
+name: Delete GitHub Actions Cache
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
       actions: write
 
     steps:
-      - name: Delete action cache
+      - name: Delete GitHub Actions cache
         uses: toshimaru/delete-action-cache@v1.0.1
         with:
           limit: 2147483647

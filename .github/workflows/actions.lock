@@ -10,7 +10,7 @@ workflows:
         - 'zizmorcore/zizmor-action@v0.8.1'
     '.github/workflows/auto-author-assign.yml':
         - 'toshimaru/auto-author-assign@v3.1.1'
-    '.github/workflows/delete-action-cache.yml':
+    '.github/workflows/delete-actions-cache.yml':
         - 'toshimaru/delete-action-cache@v1.0.1'
     '.github/workflows/docker-publish.yml':
         - 'actions/checkout@v7.0.1'
