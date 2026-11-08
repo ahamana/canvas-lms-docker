@@ -5,7 +5,7 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/actions-lint.yml':
         - 'actions/checkout@v7.0.1'
-        - 'jdx/jactionlint@v2.4.0'
+        - 'jdx/jactionlint@v2.5.0'
         - 'jdx/mise-action@v5.2.6'
         - 'zizmorcore/zizmor-action@v0.8.1'
     '.github/workflows/auto-author-assign.yml':
@@ -107,9 +107,9 @@ dependencies:
         commit: 'sha1-06be81baf89a55ffd0e24b8f04a4185738dd3387'
         owner_id: 34047791
         repo_id: 212438777
-    'jdx/jactionlint@v2.4.0':
-        ref: 'v2.4.0'
-        commit: 'sha1-baa8d685e2b27ff5821558c9eeabb2051c1da61b'
+    'jdx/jactionlint@v2.5.0':
+        ref: 'v2.5.0'
+        commit: 'sha1-9e87e8f34edfc00b849a27807e26eff9d00b936d'
         owner_id: 216188
         repo_id: 1404951382
         uses:
