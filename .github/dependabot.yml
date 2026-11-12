@@ -3,15 +3,15 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
-      time: "09:00"
+      interval: cron
+      cronjob: 0 9 * * *
       timezone: Asia/Tokyo
 
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: daily
-      time: "09:00"
+      interval: cron
+      cronjob: 0 9 * * *
       timezone: Asia/Tokyo
     groups:
       commitlint:
@@ -21,20 +21,20 @@ updates:
   - package-ecosystem: docker
     directory: /
     schedule:
-      interval: daily
-      time: "09:00"
+      interval: cron
+      cronjob: 0 9 * * *
       timezone: Asia/Tokyo
 
   - package-ecosystem: docker-compose
     directory: /
     schedule:
-      interval: daily
-      time: "09:00"
+      interval: cron
+      cronjob: 0 9 * * *
       timezone: Asia/Tokyo
 
   - package-ecosystem: devcontainers
     directory: /
     schedule:
-      interval: daily
-      time: "09:00"
+      interval: cron
+      cronjob: 0 9 * * *
       timezone: Asia/Tokyo
