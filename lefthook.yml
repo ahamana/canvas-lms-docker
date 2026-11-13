@@ -59,6 +59,10 @@ pre-commit:
       run: tombi format {staged_files}
       stage_fixed: true
 
+    - name: lychee
+      glob: "*.md"
+      run: lychee --no-progress {staged_files}
+
     - name: gh-actions-lock
       glob: .github/workflows/*
       run: gh actions-lock --verify-local

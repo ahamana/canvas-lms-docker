@@ -11,6 +11,7 @@ ghalint = "latest"
 github-cli = { version = "latest", postinstall = "gh extension install github/gh-actions-lock --force" }
 hadolint = "latest"
 jactionlint = "latest"
+lychee = "latest"
 node = "lts"
 pnpm = "latest"
 shellcheck = "latest"
