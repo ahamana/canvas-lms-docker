@@ -23,6 +23,9 @@ workflows:
     '.github/workflows/hadolint.yml':
         - 'actions/checkout@v7.0.1'
         - 'hadolint/hadolint-action@v3.5.0'
+    '.github/workflows/lychee.yml':
+        - 'actions/checkout@v7.0.1'
+        - 'lycheeverse/lychee-action@v2.9.0'
     '.github/workflows/trivy.yml':
         - 'aquasecurity/trivy-action@v0.36.0'
 dependencies:
@@ -119,6 +122,11 @@ dependencies:
         commit: 'sha1-b44d12e7d0d8ee7461bb893e1b1993500433185b'
         owner_id: 216188
         repo_id: 738284564
+    'lycheeverse/lychee-action@v2.9.0':
+        ref: 'v2.9.0'
+        commit: 'sha1-e7477775783ea5526144ba13e8db5eec57747ce8'
+        owner_id: 74027027
+        repo_id: 320929718
     'toshimaru/auto-author-assign@v3.1.1':
         ref: 'v3.1.1'
         commit: 'sha1-415448809ea5ba0e171b251632720b009df3d8d6'

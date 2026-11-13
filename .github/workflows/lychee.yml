@@ -1,0 +1,34 @@
+name: lychee
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 9 * * *
+      timezone: Asia/Tokyo
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  lychee:
+    name: lychee
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run lychee
+        uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            '**/*.md'
