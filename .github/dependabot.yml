@@ -4,15 +4,13 @@ updates:
     directory: /
     schedule:
       interval: cron
-      cronjob: 0 9 * * *
-      timezone: Asia/Tokyo
+      cronjob: 0 0 * * *
 
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: cron
-      cronjob: 0 9 * * *
-      timezone: Asia/Tokyo
+      cronjob: 0 0 * * *
     groups:
       commitlint:
         patterns:
@@ -22,19 +20,16 @@ updates:
     directory: /
     schedule:
       interval: cron
-      cronjob: 0 9 * * *
-      timezone: Asia/Tokyo
+      cronjob: 0 0 * * *
 
   - package-ecosystem: docker-compose
     directory: /
     schedule:
       interval: cron
-      cronjob: 0 9 * * *
-      timezone: Asia/Tokyo
+      cronjob: 0 0 * * *
 
   - package-ecosystem: devcontainers
     directory: /
     schedule:
       interval: cron
-      cronjob: 0 9 * * *
-      timezone: Asia/Tokyo
+      cronjob: 0 0 * * *
