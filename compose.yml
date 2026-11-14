@@ -89,7 +89,7 @@ x-canvas: &canvas
       condition: service_healthy
     smtp:
       condition: service_started
-  #   minio:
+  #   silo:
   #     condition: service_healthy
   # extra_hosts:
   #   localhost: host-gateway
@@ -151,9 +151,9 @@ services:
       MP_SMTP_AUTH: ${EMAIL_HOST_USER}:${EMAIL_HOST_PASSWORD}
       MP_SMTP_AUTH_ALLOW_INSECURE: true
 
-  # minio:
-  #   container_name: minio
-  #   image: minio/minio
+  # silo:
+  #   container_name: silo
+  #   image: pgsty/silo
   #   restart: unless-stopped
   #   command: server /data --console-address :9001
   #   ports:
@@ -168,7 +168,7 @@ services:
   #     test: mc ready local
   #   volumes:
   #     - type: volume
-  #       source: minio-data
+  #       source: silo-data
   #       target: /data
 
 volumes:
@@ -176,4 +176,4 @@ volumes:
   canvas-log:
   db-data:
   valkey-data:
-  # minio-data:
+  # silo-data:
