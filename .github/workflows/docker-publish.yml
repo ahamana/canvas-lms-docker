@@ -88,7 +88,7 @@ jobs:
             RUBY_VERSION=${{ matrix.ruby-version }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: ${{ matrix.platform }}
-          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          outputs: type=registry,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true
           cache-from: type=gha,scope=${{ steps.meta.outputs.version }}-${{ env.PLATFORM_PAIR }}
           cache-to: type=gha,scope=${{ steps.meta.outputs.version }}-${{ env.PLATFORM_PAIR }},mode=max
 
