@@ -6,7 +6,7 @@ workflows:
     '.github/workflows/actions-lint.yml':
         - 'actions/checkout@v7.0.1'
         - 'jdx/jactionlint@v2.6.0'
-        - 'jdx/mise-action@v5.2.8'
+        - 'jdx/mise-action@v5.2.9'
         - 'zizmorcore/zizmor-action@v0.8.1'
     '.github/workflows/auto-author-assign.yml':
         - 'toshimaru/auto-author-assign@v3.1.1'
@@ -117,9 +117,9 @@ dependencies:
         repo_id: 1404951382
         uses:
             - 'github/codeql-action@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2'
-    'jdx/mise-action@v5.2.8':
-        ref: 'v5.2.8'
-        commit: 'sha1-d5574b52816a478f9d4e6529a3f6ff17a8a36785'
+    'jdx/mise-action@v5.2.9':
+        ref: 'v5.2.9'
+        commit: 'sha1-236a21c3b91f5db6d4e174b348674a0f0caac06d'
         owner_id: 216188
         repo_id: 738284564
     'lycheeverse/lychee-action@v2.9.0':
