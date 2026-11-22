@@ -45,7 +45,7 @@ jobs:
       - *checkout
 
       - name: Set up ghalint
-        uses: jdx/mise-action@v5.2.9
+        uses: jdx/mise-action@v5.2.10
         with:
           install_args: ghalint
           add_shims_to_path: false
