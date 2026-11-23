@@ -109,7 +109,7 @@ services:
 
   db:
     container_name: postgres
-    image: postgres:18
+    image: postgres:19
     restart: unless-stopped
     ports:
       - published: 5432
