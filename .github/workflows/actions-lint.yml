@@ -90,7 +90,6 @@ jobs:
         with:
           install_args: github-cli
           add_shims_to_path: false
-          cache: false
 
       - name: Verify lockfile
         shell: bash
