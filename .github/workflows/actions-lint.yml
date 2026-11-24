@@ -72,3 +72,27 @@ jobs:
           persona: auditor
           advanced-security: false
           annotations: true
+
+  gh-actions-lock:
+    name: gh-actions-lock
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - *checkout
+
+      - name: Set up gh-actions-lock
+        uses: jdx/mise-action@v5.2.10
+        env: &github-token
+          GH_TOKEN: ${{ github.token }}
+        with:
+          install_args: github-cli
+          add_shims_to_path: false
+          cache: false
+
+      - name: Verify lockfile
+        shell: bash
+        env: *github-token
+        run: gh actions-lock --verify
