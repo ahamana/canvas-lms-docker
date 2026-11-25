@@ -45,7 +45,7 @@ jobs:
       - *checkout
 
       - name: Set up ghalint
-        uses: jdx/mise-action@v5.2.10
+        uses: jdx/mise-action@v5.3.0
         with:
           install_args: ghalint
           add_shims_to_path: false
@@ -84,7 +84,7 @@ jobs:
       - *checkout
 
       - name: Set up gh-actions-lock
-        uses: jdx/mise-action@v5.2.10
+        uses: jdx/mise-action@v5.3.0
         env: &github-token
           GH_TOKEN: ${{ github.token }}
         with:
