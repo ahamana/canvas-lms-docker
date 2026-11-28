@@ -2,7 +2,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
-    "lefthook": "^2.2.1",
+    "lefthook": "^2.2.3",
     "markdownlint-cli2": "^0.24.2",
     "oxfmt": "^0.80.0"
   }
